@@ -14,11 +14,15 @@ import "@xyflow/react/dist/style.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import InputTextNode from "./components/nodes/InputTextNode";
+import EdgeDropdown from "./components/edges/EdgeDropdown.tsx";
+
+
 
 const nodeTypes = { inputTextNode: InputTextNode };
+const edgeTypes = { edgeDropdown: EdgeDropdown}
 
 const defaultEdgeOptions = {
-  type: "default",
+  type: "edgeDropdown",
   markerEnd: {
     type: MarkerType.Arrow,
     color: "#b1b1b7",
@@ -46,7 +50,8 @@ const App = () => {
   const { screenToFlowPosition } = useReactFlow();
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params) =>
+      setEdges((eds) => addEdge({ ...params, type: 'edgeDropdown' }, eds)),
     [setEdges]
   );
 
@@ -88,6 +93,7 @@ const App = () => {
         fitViewOptions={{ padding: 2 }}
         nodeOrigin={nodeOrigin}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
       >
         <Background />
