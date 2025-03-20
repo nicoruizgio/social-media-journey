@@ -4,64 +4,66 @@ import {
   ReactFlow,
   useNodesState,
   useEdgesState,
-  addEdge,
   useReactFlow,
   ReactFlowProvider,
-  Controls,
+  addEdge
 } from "@xyflow/react";
-import { hanldeInvalidConnection } from "./utils/handleConnections";
-import { CustomControls } from "./components/controls/CustomControls";
-import InputTextNode from "./components/nodes/InputTextNode";
-
 import "@xyflow/react/dist/style.css";
 
+import InputTextNode from "./components/nodes/InputTextNode";
+
+const nodeTypes = { inputTextNode: InputTextNode };
 const initialNodes = [
   {
     id: "0",
     type: "inputTextNode",
-    position: { x: 0, y: 50 },
     data: { label: "" },
+    position: { x: 0, y: 50 },
   },
 ];
 
-const nodeTypes = { inputTextNode: InputTextNode };
+let id = 1;
+const getId = () => `${id++}`;
+const nodeOrigin = [0.5, 0];
 
 const App = () => {
   const reactFlowWrapper = useRef(null);
-  const nodeOrigin = [0.5, 0];
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const { screenToFlowPosition } = useReactFlow();
 
-  // Adds new edge (connection between nodes) where params is the connection details and eds the existing edges. Returns a new edges array.
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
-    []
+    [setEdges],
   );
 
-  // Evaluates when a connection attempt does not connect to an existing node and creates a new one instead and connects it to the starting node.
-  const onConnectEnd = useCallback(
-    (event, connectionState) => {
-      hanldeInvalidConnection(
-        event,
-        connectionState,
-        setNodes,
-        setEdges,
-        screenToFlowPosition,
-        nodeOrigin
-      );
+  const onDoubleClick = useCallback(
+    (event) => {
+      // Use the screenToFlowPosition function to convert the click coordinates.
+      const { clientX, clientY } = event;
+      const flowPos = screenToFlowPosition({ x: clientX, y: clientY });
+      const newId = getId();
+
+      const newNode = {
+        id: newId,
+        type: "inputTextNode", // Change node type if needed
+        position: flowPos,
+        data: { label: "" },
+        origin: nodeOrigin,
+      };
+
+      setNodes((nds) => nds.concat(newNode));
     },
-    [screenToFlowPosition]
+    [screenToFlowPosition, setNodes]
   );
-
-  console.log(nodes);
 
   return (
     <div
       className="wrapper"
       ref={reactFlowWrapper}
-      style={{ width: "100vw", height: "100vh", overflow: "hidden" }}
+      style={{ width: "100vw", height: "100vh" }}
+      onDoubleClickCapture={onDoubleClick}
     >
       <ReactFlow
         style={{ backgroundColor: "#F7F9FB" }}
@@ -69,16 +71,15 @@ const App = () => {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        //onPaneClick={onPaneClick}
         onConnect={onConnect}
-        onConnectEnd={onConnectEnd}
-        nodeTypes={nodeTypes}
         fitView
         fitViewOptions={{ padding: 2 }}
         nodeOrigin={nodeOrigin}
+        nodeTypes={nodeTypes}
       >
         <Background />
       </ReactFlow>
-      <Controls />
     </div>
   );
 };
