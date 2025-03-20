@@ -6,13 +6,23 @@ import {
   useEdgesState,
   useReactFlow,
   ReactFlowProvider,
-  addEdge
+  addEdge,
+  MarkerType,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
 import InputTextNode from "./components/nodes/InputTextNode";
 
 const nodeTypes = { inputTextNode: InputTextNode };
+
+const defaultEdgeOptions = {
+  type: "default", // or 'default' if you aren't using a custom edge
+  markerEnd: {
+    type: MarkerType.Arrow,
+    color: "#b1b1b7",
+  },
+};
+
 const initialNodes = [
   {
     id: "0",
@@ -35,7 +45,7 @@ const App = () => {
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges],
+    [setEdges]
   );
 
   const onDoubleClick = useCallback(
@@ -71,12 +81,12 @@ const App = () => {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
-        //onPaneClick={onPaneClick}
         onConnect={onConnect}
         fitView
         fitViewOptions={{ padding: 2 }}
         nodeOrigin={nodeOrigin}
         nodeTypes={nodeTypes}
+        defaultEdgeOptions={defaultEdgeOptions}
       >
         <Background />
       </ReactFlow>
