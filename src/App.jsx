@@ -11,12 +11,14 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import InputTextNode from "./components/nodes/InputTextNode";
 
 const nodeTypes = { inputTextNode: InputTextNode };
 
 const defaultEdgeOptions = {
-  type: "default", // or 'default' if you aren't using a custom edge
+  type: "default",
   markerEnd: {
     type: MarkerType.Arrow,
     color: "#b1b1b7",

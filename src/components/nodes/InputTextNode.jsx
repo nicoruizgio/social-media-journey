@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import "./InputTextNode.css";
+import DropdownOptions from "../dropdown/Dropwdown";
 
 function InputTextNode({ id, data, isConnectable }) {
   const { setNodes } = useReactFlow(); // Get setNodes function
@@ -29,14 +30,7 @@ function InputTextNode({ id, data, isConnectable }) {
         isConnectable={isConnectable}
       />
       <div>
-        <input
-          id="text"
-          name="text"
-          placeholder="Enter App Name"
-          onChange={onChange}
-          className="nodrag"
-          value={data.label}
-        />
+        <DropdownOptions/>
       </div>
       <Handle
         type="source"
