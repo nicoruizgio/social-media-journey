@@ -1,0 +1,25 @@
+.title-panel {
+  background-color: white;
+  padding: 0.5rem 1.5rem;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.instructions-panel {
+  background-color: #ffffff;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  width: 10rem;
+}
+
+
+
+.instructions-panel li {
+  padding-bottom: 0.5rem;
+  font-size: 0.6rem;
+  margin: 0rem;
+  padding-right: 1rem;
+  list-style: decimal;
+}

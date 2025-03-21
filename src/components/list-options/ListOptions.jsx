@@ -64,7 +64,6 @@ function ListOptions() {
               </ListGroup.Item>
               <Collapse in={isOpen}>
                 <div id={`accordion-body-${index}`}>
-                  {/* Extra wrapper with no margin or padding */}
                   <div className="accordion-content">
                     <p className="accordion-title">{option.body.title}</p>
                     <ListGroup>

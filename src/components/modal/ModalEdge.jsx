@@ -20,7 +20,7 @@ function MyModal(props) {
         <ListOptions />
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={props.onHide}>Save</Button>
       </Modal.Footer>
     </Modal>
   );

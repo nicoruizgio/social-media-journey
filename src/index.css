@@ -1,11 +1,17 @@
-:root {
 
+html,
+body {
+  margin: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;  /* Prevents extra scrollbars */
-  width: 100%;
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+.wrapper {
+  flex-grow: 1;
   height: 100%;
 }

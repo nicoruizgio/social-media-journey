@@ -2,6 +2,8 @@ import React, { useCallback, useRef } from "react";
 import {
   Background,
   ReactFlow,
+  Panel,
+  Controls,
   useNodesState,
   useEdgesState,
   useReactFlow,
@@ -10,6 +12,9 @@ import {
   MarkerType,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import CustomPanels from "./components/panels/CustomPanels.jsx";
+
+import './index.css'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -22,7 +27,7 @@ const edgeTypes = { dropdownEdge: DropdownEdge };
 const defaultEdgeOptions = {
   type: "dropdownEdge",
   markerEnd: {
-    type: MarkerType.Arrow,
+    type: MarkerType.ArrowClosed,
     color: "#b1b1b7",
   },
 };
@@ -95,6 +100,8 @@ const App = () => {
         defaultEdgeOptions={defaultEdgeOptions}
       >
         <Background />
+        <CustomPanels/>
+        <Controls/>
       </ReactFlow>
     </div>
   );
