@@ -1,7 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import React from "react";
+import React, { useEffect } from "react";
 import ListOptions from "../list-options/ListOptions";
+
 
 function MyModal(props) {
   return (
@@ -26,8 +27,14 @@ function MyModal(props) {
   );
 }
 
-function ModalEdge() {
+function ModalEdge({autoOpen = false}) {
   const [modalShow, setModalShow] = React.useState(false);
+
+  useEffect(()=>{
+    if (autoOpen) {
+      setModalShow(true);
+    }
+  }, [autoOpen]);
 
   return (
     <>

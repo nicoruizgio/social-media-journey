@@ -19,6 +19,7 @@ export default function DropdownEdge({
   targetY,
   sourcePosition,
   targetPosition,
+  data,
   style = {},
   markerEnd,
 }: EdgeProps) {
@@ -43,7 +44,7 @@ export default function DropdownEdge({
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
           }}
         >
-          <ModalEdge/>
+          <ModalEdge autoOpen = {data?.openModal}/>
         </div>
       </EdgeLabelRenderer>
     </>

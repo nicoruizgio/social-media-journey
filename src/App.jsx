@@ -54,7 +54,7 @@ const App = () => {
 
   const onConnect = useCallback(
     (params) =>
-      setEdges((eds) => addEdge({ ...params, type: "dropdownEdge" }, eds)),
+      setEdges((eds) => addEdge({ ...params, type: "dropdownEdge", data: {openModal : true} }, eds)),
     [setEdges]
   );
 
