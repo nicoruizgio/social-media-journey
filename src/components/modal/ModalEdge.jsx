@@ -1,8 +1,8 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import React from 'react';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import React from "react";
 
-function MyVerticallyCenteredModal(props) {
+function MyModal(props) {
   return (
     <Modal
       {...props}
@@ -30,7 +30,7 @@ function MyVerticallyCenteredModal(props) {
   );
 }
 
-function ModalBUtton() {
+function ModalEdge() {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
@@ -39,12 +39,9 @@ function ModalBUtton() {
         Add reason
       </Button>
 
-      <MyVerticallyCenteredModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+      <MyModal show={modalShow} onHide={() => setModalShow(false)} />
     </>
   );
 }
 
-export default ModalBUtton
+export default ModalEdge;

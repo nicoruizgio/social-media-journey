@@ -2,7 +2,7 @@ import { useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
-function DropdownOptions() {
+function DropdownNodeOptions() {
   const [selectedApp, setSelectedApp] = useState("Select App");
 
   const apps = ["Instagram", "Facebook", "LinkedIn"];
@@ -18,4 +18,4 @@ function DropdownOptions() {
   );
 }
 
-export default DropdownOptions;
+export default DropdownNodeOptions;

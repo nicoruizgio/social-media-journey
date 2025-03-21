@@ -7,12 +7,11 @@ import {
   type EdgeProps,
 } from '@xyflow/react';
 
-import './EdgeDropdown.css'
-import ModalBUtton from '../modal/Modal';
+import './DropdownEdge.css'
+import ModalEdge from '../modal/ModalEdge';
 
-import DropdownOptions from '../dropdown/Dropwdown';
 
-export default function EdgeDropdown({
+export default function DropdownEdge({
   id,
   sourceX,
   sourceY,
@@ -44,7 +43,7 @@ export default function EdgeDropdown({
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
           }}
         >
-          <ModalBUtton/>
+          <ModalEdge/>
         </div>
       </EdgeLabelRenderer>
     </>

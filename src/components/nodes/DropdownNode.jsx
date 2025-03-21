@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
-import "./InputTextNode.css";
-import DropdownOptions from "../dropdown/Dropwdown";
+import "./DropdownNode.css";
+import DropdownNodeOptions from "../dropdown/DropwdownNodeOptions";
 
-function InputTextNode({ id, data, isConnectable }) {
+function DropdownNode({ id, data, isConnectable }) {
   const { setNodes } = useReactFlow(); // Get setNodes function
 
   const onChange = useCallback(
@@ -30,7 +30,7 @@ function InputTextNode({ id, data, isConnectable }) {
         isConnectable={isConnectable}
       />
       <div>
-        <DropdownOptions/>
+        <DropdownNodeOptions/>
       </div>
       <Handle
         type="source"
@@ -42,4 +42,4 @@ function InputTextNode({ id, data, isConnectable }) {
   );
 }
 
-export default InputTextNode;
+export default DropdownNode;

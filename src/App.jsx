@@ -11,18 +11,16 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import InputTextNode from "./components/nodes/InputTextNode";
-import EdgeDropdown from "./components/edges/EdgeDropdown.tsx";
+import DropdownNode from "./components/nodes/DropdownNode.jsx";
+import DropdownEdge from "./components/edges/DropdownEdge.tsx";
 
-
-
-const nodeTypes = { inputTextNode: InputTextNode };
-const edgeTypes = { edgeDropdown: EdgeDropdown}
+const nodeTypes = { dropdownNode: DropdownNode };
+const edgeTypes = { dropdownEdge: DropdownEdge };
 
 const defaultEdgeOptions = {
-  type: "edgeDropdown",
+  type: "dropdownEdge",
   markerEnd: {
     type: MarkerType.Arrow,
     color: "#b1b1b7",
@@ -32,7 +30,7 @@ const defaultEdgeOptions = {
 const initialNodes = [
   {
     id: "0",
-    type: "inputTextNode",
+    type: "dropdownNode",
     data: { label: "" },
     position: { x: 0, y: 50 },
   },
@@ -51,7 +49,7 @@ const App = () => {
 
   const onConnect = useCallback(
     (params) =>
-      setEdges((eds) => addEdge({ ...params, type: 'edgeDropdown' }, eds)),
+      setEdges((eds) => addEdge({ ...params, type: "dropdownEdge" }, eds)),
     [setEdges]
   );
 
@@ -64,7 +62,7 @@ const App = () => {
 
       const newNode = {
         id: newId,
-        type: "inputTextNode", // Change node type if needed
+        type: "dropdownNode", // Change node type if needed
         position: flowPos,
         data: { label: "" },
         origin: nodeOrigin,
