@@ -1,4 +1,8 @@
 .accordion-content {
-  padding: 2rem; /* or whatever padding you want */
+  padding: 1rem 2rem; /* or whatever padding you want */
   margin: 0.5rem 0; /* or your preferred margin */
+}
+
+.accordion-title {
+  font-weight: bold;
 }
