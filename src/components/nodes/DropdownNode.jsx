@@ -1,11 +1,12 @@
 import { useCallback } from "react";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import "./DropdownNode.css";
-import DropdownNodeOptions from "../dropdown/DropwdownNodeOptions";
+import DropdownNodeOptions from "../dropdown-node-options/DropwdownNodeOptions";
 
 function DropdownNode({ id, data, isConnectable }) {
   const { setNodes } = useReactFlow(); // Get setNodes function
 
+  //TODO: Modify this function to change the node label to the selected option.
   const onChange = useCallback(
     (evt) => {
       const newLabel = evt.target.value;
@@ -30,7 +31,7 @@ function DropdownNode({ id, data, isConnectable }) {
         isConnectable={isConnectable}
       />
       <div>
-        <DropdownNodeOptions/>
+        <DropdownNodeOptions />
       </div>
       <Handle
         type="source"
