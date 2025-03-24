@@ -11,6 +11,7 @@ function DropdownNodeOptions({selectedApp, setSelectedApp}) {
     { type: "text", label: "Instagram" },
     { type: "text", label: "Facebook" },
     { type: "text", label: "LinkedIn" },
+    { type: "text", label: "Twitter" },
     { type: "input", label: "Other" },
   ];
 
