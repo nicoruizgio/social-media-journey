@@ -1,27 +1,53 @@
-import { useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import "./DropdownNode.css";
 import DropdownNodeOptions from "../dropdown-node-options/DropwdownNodeOptions";
 
 function DropdownNode({ id, data, isConnectable }) {
-  const { setNodes } = useReactFlow(); // Get setNodes function
+  const { setNodes, setEdges } = useReactFlow(); // Get setNodes function that will update the nodes label
+  const [selectedApp, setSelectedApp] = useState(data.label || "Select App"); // local state to control the node label change
 
-  //TODO: Modify this function to change the node label to the selected option.
-  const onChange = useCallback(
-    (evt) => {
-      const newLabel = evt.target.value;
+  useEffect(() => {
+    // update the node label
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === id
+          ? {
+              ...node,
+              data: {
+                ...node.data,
+                label: selectedApp,
+              },
+            }
+          : node
+      )
+    );
 
-      // Update the node's label
-      setNodes((nodes) =>
-        nodes.map((node) =>
-          node.id === id
-            ? { ...node, data: { ...node.data, label: newLabel } }
-            : node
-        )
-      );
-    },
-    [id, setNodes]
-  );
+    // update only the edges connected to this node
+    setEdges((eds) =>
+      eds.map((edge) => {
+        if (edge.source === id) {
+          return {
+            ...edge,
+            data: {
+              ...edge.data,
+              sourceLabel: selectedApp,
+            },
+          };
+        }
+        if (edge.target === id) {
+          return {
+            ...edge,
+            data: {
+              ...edge.data,
+              targetLabel: selectedApp,
+            },
+          };
+        }
+        return edge;
+      })
+    );
+  }, [selectedApp, id, setNodes, setEdges]);
 
   return (
     <div className="input-text-node">
@@ -31,7 +57,10 @@ function DropdownNode({ id, data, isConnectable }) {
         isConnectable={isConnectable}
       />
       <div>
-        <DropdownNodeOptions />
+        <DropdownNodeOptions
+          selectedApp={selectedApp}
+          setSelectedApp={setSelectedApp}
+        />
       </div>
       <Handle
         type="source"

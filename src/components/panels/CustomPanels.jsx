@@ -1,7 +1,7 @@
 import { Panel } from "@xyflow/react";
 import "./CustomPanels.css";
 
-import Accordion from 'react-bootstrap/Accordion';
+import Accordion from "react-bootstrap/Accordion";
 
 function Instructions() {
   return (
@@ -9,13 +9,19 @@ function Instructions() {
       <Accordion.Item eventKey="0">
         <Accordion.Header>Instructions</Accordion.Header>
         <Accordion.Body>
-            <li>Double click on the workspace to create a new node</li>
-            <li>
-              To connect a node to another, click and drag from the source
-              handle (the dot below a node) to the target handle (the dot above
-              a node).
-            </li>
-
+          <li>
+            <b>Double click </b>on the workspace to create a <b>new node</b>
+          </li>
+          <li>
+            To <b>connect</b> a node to another, click and drag from the {" "}
+             <b>source handle</b>
+             {" "}(the dot below a node) to the <b>target handle </b> (the dot above a
+            node).
+          </li>
+          <li>
+            To <b>delete a connection</b>, click on the connection line and
+            press the delete key
+          </li>
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
@@ -32,8 +38,7 @@ export default function CustomPanels() {
       </Panel>
       <Panel>
         <div className="instructions-panel">
-          <Instructions/>
-
+          <Instructions />
         </div>
       </Panel>
     </>

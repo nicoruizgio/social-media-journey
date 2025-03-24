@@ -1,10 +1,18 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ListOptions from "../list-options/ListOptions";
+import "./ModalEdge.css";
 
-
-function MyModal(props) {
+function MyModal({
+  sourceLabel,
+  targetLabel,
+  selectedOption,
+  setSelectedOption,
+  innerSelectedOption,
+  setInnerSelectedOption,
+  ...props
+}) {
   return (
     <Modal
       {...props}
@@ -14,11 +22,18 @@ function MyModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Why did you choose to move from Facebook to Instagram?
+          Why did you choose to move from <b>{sourceLabel}</b> to{" "}
+          <b>{targetLabel}</b>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ListOptions />
+        <ListOptions
+          sourceLabel={sourceLabel}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          innerSelectedOption={innerSelectedOption}
+          setInnerSelectedOption={setInnerSelectedOption}
+        />
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Save</Button>
@@ -27,10 +42,12 @@ function MyModal(props) {
   );
 }
 
-function ModalEdge({autoOpen = false}) {
-  const [modalShow, setModalShow] = React.useState(false);
+function ModalEdge({ autoOpen = false, sourceLabel, targetLabel }) {
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("+");
+  const [innerSelectedOption, setInnerSelectedOption] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (autoOpen) {
       setModalShow(true);
     }
@@ -38,11 +55,27 @@ function ModalEdge({autoOpen = false}) {
 
   return (
     <>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        Add reason
+      <Button
+        variant="secondary"
+        size="sm"
+        onClick={() => setModalShow(true)}
+        prefix="btn: 'dropdown-edge'"
+      >
+        {innerSelectedOption
+          ? `${selectedOption}: ${innerSelectedOption}`
+          : selectedOption}
       </Button>
 
-      <MyModal show={modalShow} onHide={() => setModalShow(false)} />
+      <MyModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        sourceLabel={sourceLabel}
+        targetLabel={targetLabel}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
+        innerSelectedOption={innerSelectedOption}
+        setInnerSelectedOption={setInnerSelectedOption}
+      />
     </>
   );
 }

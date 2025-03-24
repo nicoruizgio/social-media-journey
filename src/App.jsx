@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import {
   Background,
   ReactFlow,
@@ -7,6 +7,7 @@ import {
   useNodesState,
   useEdgesState,
   useReactFlow,
+  useEdges,
   ReactFlowProvider,
   addEdge,
   MarkerType,
@@ -14,7 +15,7 @@ import {
 import "@xyflow/react/dist/style.css";
 import CustomPanels from "./components/panels/CustomPanels.jsx";
 
-import './index.css'
+import "./index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -53,10 +54,32 @@ const App = () => {
   const { screenToFlowPosition } = useReactFlow();
 
   const onConnect = useCallback(
-    (params) =>
-      setEdges((eds) => addEdge({ ...params, type: "dropdownEdge", data: {openModal : true} }, eds)),
-    [setEdges]
+    (params) => {
+      // Assume you have access to your nodes array to find the labels
+      const sourceNode = nodes.find((node) => node.id === params.source);
+      const targetNode = nodes.find((node) => node.id === params.target);
+
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...params,
+            type: "dropdownEdge",
+            data: {
+              openModal: true,
+              sourceLabel: sourceNode?.data?.label,
+              targetLabel: targetNode?.data?.label,
+            },
+          },
+          eds
+        )
+      );
+    },
+    [nodes, setEdges]
   );
+
+  useEffect(() => {
+    console.log("Updated edges:", edges);
+  }, [edges]);
 
   const onDoubleClick = useCallback(
     (event) => {
@@ -77,6 +100,8 @@ const App = () => {
     },
     [screenToFlowPosition, setNodes]
   );
+
+
 
   return (
     <div
@@ -100,8 +125,8 @@ const App = () => {
         defaultEdgeOptions={defaultEdgeOptions}
       >
         <Background />
-        <CustomPanels/>
-        <Controls/>
+        <CustomPanels />
+        <Controls />
       </ReactFlow>
     </div>
   );

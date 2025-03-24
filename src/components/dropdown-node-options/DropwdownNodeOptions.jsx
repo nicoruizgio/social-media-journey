@@ -3,8 +3,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ModalNode from "../modal/ModalNode";
 
-function DropdownNodeOptions() {
-  const [selectedApp, setSelectedApp] = useState("Select App");
+function DropdownNodeOptions({selectedApp, setSelectedApp}) {
+
   const [modalShow, setModalShow] = useState(false);
 
   const apps = [

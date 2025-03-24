@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   BaseEdge,
   EdgeLabelRenderer,
   getBezierPath,
   useReactFlow,
+  useEdges,
   type EdgeProps,
-} from '@xyflow/react';
+} from "@xyflow/react";
 
-import './DropdownEdge.css'
-import ModalEdge from '../modal/ModalEdge';
-
+import "./DropdownEdge.css";
+import ModalEdge from "../modal/ModalEdge";
 
 export default function DropdownEdge({
   id,
@@ -33,18 +33,21 @@ export default function DropdownEdge({
     targetPosition,
   });
 
-
   return (
     <>
       <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
       <EdgeLabelRenderer>
-      <div
+        <div
           className="button-edge__label nodrag nopan"
           style={{
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
           }}
         >
-          <ModalEdge autoOpen = {data?.openModal}/>
+          <ModalEdge
+            sourceLabel={data?.sourceLabel}
+            targetLabel={data?.targetLabel}
+            autoOpen={data?.openModal}
+          />
         </div>
       </EdgeLabelRenderer>
     </>

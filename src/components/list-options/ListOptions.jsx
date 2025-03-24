@@ -6,9 +6,13 @@ import { ListGroupItem } from "react-bootstrap";
 import "./ListOptions.css";
 import Form from "react-bootstrap/Form";
 
-function ListOptions() {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [innerSelectedOption, setInnerSelectedOption] = useState(null);
+function ListOptions({
+  sourceLabel,
+  selectedOption,
+  setSelectedOption,
+  innerSelectedOption,
+  setInnerSelectedOption,
+}) {
   const [openAccordion, setOpenAccordion] = useState(null);
 
   const options = [
@@ -27,7 +31,7 @@ function ListOptions() {
       },
     },
     { type: "list", label: "I liked a feature" },
-    { type: "list", label: "I didn't like the content on Facebook" },
+    { type: "list", label: `I didn't like the content on ${sourceLabel}` },
   ];
 
   return (
