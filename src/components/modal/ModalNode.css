@@ -1,0 +1,16 @@
+.btn {
+  background-color: rgb(241, 240, 240);
+  color: black;
+  border: 1px solid #ccc;
+}
+
+.btn:hover {
+  background-color: #f0f0f0;
+  color: black;
+  border: 1px solid #aaa;
+}
+
+.btn:active {
+  background-color: black !important; /* override default blue */
+  color: white;
+}

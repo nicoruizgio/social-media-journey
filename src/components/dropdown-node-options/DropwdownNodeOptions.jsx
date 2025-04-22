@@ -2,10 +2,12 @@ import { useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ModalNode from "../modal/ModalNode";
+import "./DropdownNodeOptions.css";
 
 function DropdownNodeOptions({selectedApp, setSelectedApp}) {
 
   const [modalShow, setModalShow] = useState(false);
+  const [activeItem, setActiveItem] = useState(null);
 
   const apps = [
     { type: "text", label: "Instagram" },
@@ -17,9 +19,10 @@ function DropdownNodeOptions({selectedApp, setSelectedApp}) {
 
   return (
     <>
-      <DropdownButton id="dropdown-basic-button" title={selectedApp}>
+      <DropdownButton id="dropdown-basic-button" title={selectedApp} bsPrefix="dropdown-btn">
         {apps.map((app, index) => (
           <Dropdown.Item
+          className={activeItem === index ? "active-item" : ""}
             key={index}
             onClick={() => {
               app.type === "text"

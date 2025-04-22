@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
+import "./ModalNode.css";
 
 function ModalNode(props) {
   const [inputValue, setInputValue] = useState("");

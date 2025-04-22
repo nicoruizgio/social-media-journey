@@ -55,7 +55,6 @@ const App = () => {
 
   const onConnect = useCallback(
     (params) => {
-      // Assume you have access to your nodes array to find the labels
       const sourceNode = nodes.find((node) => node.id === params.source);
       const targetNode = nodes.find((node) => node.id === params.target);
 
@@ -83,14 +82,13 @@ const App = () => {
 
   const onDoubleClick = useCallback(
     (event) => {
-      // Use the screenToFlowPosition function to convert the click coordinates.
       const { clientX, clientY } = event;
       const flowPos = screenToFlowPosition({ x: clientX, y: clientY });
       const newId = getId();
 
       const newNode = {
         id: newId,
-        type: "dropdownNode", // Change node type if needed
+        type: "dropdownNode",
         position: flowPos,
         data: { label: "" },
         origin: nodeOrigin,

@@ -59,7 +59,7 @@ function ModalEdge({ autoOpen = false, sourceLabel, targetLabel }) {
         variant="secondary"
         size="sm"
         onClick={() => setModalShow(true)}
-        prefix="btn: 'dropdown-edge'"
+
       >
         {innerSelectedOption
           ? `${selectedOption}: ${innerSelectedOption}`
