@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Background,
   ReactFlow,
@@ -14,6 +14,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import CustomPanels from "./components/panels/CustomPanels.jsx";
+
 
 import "./index.css";
 
@@ -51,12 +52,34 @@ const App = () => {
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [ showAlert, setShowAlert ] = useState(false);
+  const [ alertMessage, setAlertMessage ] = useState("");
   const { screenToFlowPosition } = useReactFlow();
 
   const onConnect = useCallback(
     (params) => {
-      const sourceNode = nodes.find((node) => node.id === params.source);
-      const targetNode = nodes.find((node) => node.id === params.target);
+      const sourceNode = nodes.find((n) => n.id === params.source);
+      const targetNode = nodes.find((n) => n.id === params.target);
+
+      const invalid = (node) =>
+        !node?.data?.label || node.data.label === "Select App";
+
+      if (invalid(sourceNode) || invalid(targetNode)) {
+        setShowAlert(true);
+        setAlertMessage("Please select an app for both nodes before connecting");
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 4000);
+        return;
+      } else if (sourceNode.data.label === targetNode.data.label) {
+        setShowAlert(true);
+        setAlertMessage("You cannot connect nodes with the same app");
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 4000);
+        return;
+      }
+
 
       setEdges((eds) =>
         addEdge(
@@ -65,8 +88,8 @@ const App = () => {
             type: "dropdownEdge",
             data: {
               openModal: true,
-              sourceLabel: sourceNode?.data?.label,
-              targetLabel: targetNode?.data?.label,
+              sourceLabel: sourceNode.data.label,
+              targetLabel: targetNode.data.label,
             },
           },
           eds
@@ -75,6 +98,7 @@ const App = () => {
     },
     [nodes, setEdges]
   );
+
 
   useEffect(() => {
     console.log("Updated edges:", edges);
@@ -123,7 +147,7 @@ const App = () => {
         defaultEdgeOptions={defaultEdgeOptions}
       >
         <Background />
-        <CustomPanels />
+        <CustomPanels showAlert={showAlert} alertMessage={alertMessage}/>
         <Controls />
       </ReactFlow>
     </div>

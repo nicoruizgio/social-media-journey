@@ -62,7 +62,7 @@ function ModalEdge({ autoOpen = false, sourceLabel, targetLabel }) {
 
       >
         {innerSelectedOption
-          ? `${selectedOption}: ${innerSelectedOption}`
+          ? `Communication with ${innerSelectedOption}`
           : selectedOption}
       </Button>
 

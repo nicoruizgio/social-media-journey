@@ -1,7 +1,7 @@
 import { Panel } from "@xyflow/react";
 import "./CustomPanels.css";
-
 import Accordion from "react-bootstrap/Accordion";
+import { Alert } from "../alert/Alert";
 
 function Instructions() {
   return (
@@ -28,7 +28,7 @@ function Instructions() {
   );
 }
 
-export default function CustomPanels() {
+export default function CustomPanels({ showAlert, alertMessage }) {
   return (
     <>
       <Panel position="top-center">
@@ -41,6 +41,14 @@ export default function CustomPanels() {
           <Instructions />
         </div>
       </Panel>
+      {showAlert && (
+        <Panel position="bottom-center">
+          <div className="alert-panel">
+            <Alert alertMessage={alertMessage} />
+          </div>
+        </Panel>
+
+      )}
     </>
   );
 }
