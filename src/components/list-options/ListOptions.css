@@ -13,3 +13,9 @@
   color: rgb(255, 255, 255);
   border: 1px solid #ccc;
 }
+
+.list-group-item:focus-within {
+    background-color: rgb(0,0,0) !important;
+    color: rgb(255,255,255) !important;
+  }
+

@@ -15,7 +15,6 @@ import {
 import "@xyflow/react/dist/style.css";
 import CustomPanels from "./components/panels/CustomPanels.jsx";
 
-
 import "./index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -34,14 +33,7 @@ const defaultEdgeOptions = {
   },
 };
 
-const initialNodes = [
-  {
-    id: "0",
-    type: "dropdownNode",
-    data: { label: "" },
-    position: { x: 0, y: 50 },
-  },
-];
+
 
 let id = 1;
 const getId = () => `${id++}`;
@@ -49,12 +41,23 @@ const nodeOrigin = [0.5, 0];
 
 const App = () => {
   const reactFlowWrapper = useRef(null);
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [ showAlert, setShowAlert ] = useState(false);
-  const [ alertMessage, setAlertMessage ] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const { screenToFlowPosition } = useReactFlow();
+  const initialNodes = [
+    {
+      id: "0",
+      type: "dropdownNode",
+      position: { x: 0, y: 50 },
+      data: {
+        label: "",
+        setShowAlert,
+        setAlertMessage,
+      },
+    },
+  ];
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 
   const onConnect = useCallback(
     (params) => {
@@ -66,7 +69,9 @@ const App = () => {
 
       if (invalid(sourceNode) || invalid(targetNode)) {
         setShowAlert(true);
-        setAlertMessage("Please select an app for both nodes before connecting");
+        setAlertMessage(
+          "Please select an app for both nodes before connecting"
+        );
         setTimeout(() => {
           setShowAlert(false);
         }, 4000);
@@ -79,7 +84,6 @@ const App = () => {
         }, 4000);
         return;
       }
-
 
       setEdges((eds) =>
         addEdge(
@@ -99,7 +103,6 @@ const App = () => {
     [nodes, setEdges]
   );
 
-
   useEffect(() => {
     console.log("Updated edges:", edges);
   }, [edges]);
@@ -114,7 +117,11 @@ const App = () => {
         id: newId,
         type: "dropdownNode",
         position: flowPos,
-        data: { label: "" },
+        data: {
+          label: "",
+          setShowAlert,
+          setAlertMessage,
+        },
         origin: nodeOrigin,
       };
 
@@ -122,8 +129,6 @@ const App = () => {
     },
     [screenToFlowPosition, setNodes]
   );
-
-
 
   return (
     <div
@@ -147,7 +152,7 @@ const App = () => {
         defaultEdgeOptions={defaultEdgeOptions}
       >
         <Background />
-        <CustomPanels showAlert={showAlert} alertMessage={alertMessage}/>
+        <CustomPanels showAlert={showAlert} alertMessage={alertMessage} />
         <Controls />
       </ReactFlow>
     </div>
