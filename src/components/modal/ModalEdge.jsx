@@ -19,6 +19,7 @@ function MyModal({
 }) {
   const otherRef = useRef(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const onHideModal = () => {
     setShowAlert(false);
@@ -27,12 +28,22 @@ function MyModal({
 
   const onSave = () => {
     let inner = null;
+    const option = "I wanted to communicate with someone particular";
 
-    if (selectedOption === "I wanted to communicate with someone particular") {
+    if (selectedOption === option) {
       const value = otherRef.current?.value?.trim() || innerSelectedOption;
       console.log("value", value);
       console.log("selectedOption", selectedOption);
       if (value) {
+        if (value === option) {
+          setAlertMessage(
+            "Please enter who did you want to communicate with"
+          );
+          setShowAlert(true);
+          setTimeout(() => setShowAlert(false), 4000);
+          return;
+        }
+
         inner = value;
       } else {
         setShowAlert(true);
