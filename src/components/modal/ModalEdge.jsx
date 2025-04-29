@@ -76,7 +76,7 @@ function MyModal({
     <Modal show={show} onHide={onCancel} size="lg" centered>
       <Modal.Header closeButton>
         <Modal.Title>
-          Why move from <b>{sourceLabel}</b> to <b>{targetLabel}</b>?
+          Why did you move from <b>{sourceLabel}</b> to <b>{targetLabel}</b>?
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

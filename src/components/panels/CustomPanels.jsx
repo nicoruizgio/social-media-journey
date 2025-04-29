@@ -1,4 +1,4 @@
-import { Panel } from "@xyflow/react";
+import { Panel, useReactFlow} from "@xyflow/react";
 import "./CustomPanels.css";
 import Accordion from "react-bootstrap/Accordion";
 import { Alert } from "../alert/Alert";
@@ -30,9 +30,27 @@ function Instructions() {
 }
 
 function DownloadDataButton( {text}) {
+  const { getNodes, getEdges } = useReactFlow();
   const handleDownload = () => {
-    // Logic to download data
-    console.log("Data downloaded");
+    const nodes = getNodes();
+    const edges = getEdges();
+
+    const nodesData = nodes.map(node => ({
+      id: node.id,
+      label: node.data.label,
+
+    }));
+    const edgesData = edges.map(edge => ({
+      id: edge.id,
+      sourceId: edge.source,
+      targetId: edge.target,
+      sourceLabel: edge.data.sourceLabel,
+      targetLabel: edge.data.targetLabel,
+      reason: edge.data.selectedOption,
+      reason2: edge.data.innerSelectedOption
+    }));
+    console.log("Nodes:", nodesData);
+    console.log("Edges:", edgesData);
   };
 
   return (
@@ -43,6 +61,7 @@ function DownloadDataButton( {text}) {
 }
 
 export default function CustomPanels({ showAlert, alertMessage }) {
+
   return (
     <>
       <Panel position="top-center">
@@ -56,7 +75,7 @@ export default function CustomPanels({ showAlert, alertMessage }) {
         </div>
       </Panel>
       <Panel position="top-right">
-        <DownloadDataButton text="Download Data" />
+        <DownloadDataButton text="Download Data"/>
       </Panel>
       {showAlert && (
         <Panel position="bottom-center">

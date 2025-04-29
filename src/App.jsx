@@ -102,11 +102,6 @@ const App = () => {
     [nodes, setEdges]
   );
 
-  useEffect(() => {
-    console.log("Updated edges:", edges);
-    console.log("Updated nodes:", nodes);
-  }, [edges, nodes]);
-
   const onDoubleClick = useCallback(
     (event) => {
       const { clientX, clientY } = event;
