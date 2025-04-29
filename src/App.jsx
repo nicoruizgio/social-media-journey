@@ -7,7 +7,6 @@ import {
   useNodesState,
   useEdgesState,
   useReactFlow,
-  useEdges,
   ReactFlowProvider,
   addEdge,
   MarkerType,
@@ -32,8 +31,6 @@ const defaultEdgeOptions = {
     color: "#b1b1b7",
   },
 };
-
-
 
 let id = 1;
 const getId = () => `${id++}`;
@@ -94,6 +91,8 @@ const App = () => {
               openModal: true,
               sourceLabel: sourceNode.data.label,
               targetLabel: targetNode.data.label,
+              selectedOption: "+",
+              innerSelectedOption: null,
             },
           },
           eds
@@ -105,7 +104,8 @@ const App = () => {
 
   useEffect(() => {
     console.log("Updated edges:", edges);
-  }, [edges]);
+    console.log("Updated nodes:", nodes);
+  }, [edges, nodes]);
 
   const onDoubleClick = useCallback(
     (event) => {

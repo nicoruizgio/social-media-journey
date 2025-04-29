@@ -4,7 +4,6 @@ import {
   EdgeLabelRenderer,
   getBezierPath,
   useReactFlow,
-  useEdges,
   type EdgeProps,
 } from "@xyflow/react";
 
@@ -33,6 +32,26 @@ export default function DropdownEdge({
     targetPosition,
   });
 
+  // Function to update edge data when selection is saved
+  const updateEdgeData = (selectionData) => {
+    setEdges((eds) =>
+      eds.map((edge) => {
+        if (edge.id === id) {
+          return {
+            ...edge,
+            data: {
+              ...edge.data,
+              selectedOption: selectionData.selectedOption,
+              innerSelectedOption: selectionData.innerSelectedOption,
+              openModal: false, // Close modal after save
+            },
+          };
+        }
+        return edge;
+      })
+    );
+  };
+
   return (
     <>
       <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
@@ -47,6 +66,11 @@ export default function DropdownEdge({
             sourceLabel={data?.sourceLabel}
             targetLabel={data?.targetLabel}
             autoOpen={data?.openModal}
+            initialSelection={{
+              selectedOption: data?.selectedOption || "+",
+              innerSelectedOption: data?.innerSelectedOption || null,
+            }}
+            onSaveSelection={updateEdgeData}
           />
         </div>
       </EdgeLabelRenderer>

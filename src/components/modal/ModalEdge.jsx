@@ -16,6 +16,7 @@ function MyModal({
   setSaveOption,
   innerSelectedOption,
   setInnerSelectedOption,
+  onSaveSelection,
 }) {
   const otherRef = useRef(null);
   const [showAlert, setShowAlert] = useState(false);
@@ -32,8 +33,6 @@ function MyModal({
 
     if (selectedOption === option) {
       const value = otherRef.current?.value?.trim() || innerSelectedOption;
-      console.log("value", value);
-      console.log("selectedOption", selectedOption);
       if (value) {
         if (value === option) {
           setAlertMessage(
@@ -46,22 +45,29 @@ function MyModal({
 
         inner = value;
       } else {
+        setAlertMessage("Please enter who did you want to communicate with");
         setShowAlert(true);
         setTimeout(() => setShowAlert(false), 4000);
         return;
       }
     }
 
-    setSaveOption({
+    const newSelection = {
       selectedOption,
       innerSelectedOption: inner,
-    });
+    };
+
+    // Update local state
+    setSaveOption(newSelection);
+
+    // Call the parent function to update the edge data
+    onSaveSelection(newSelection);
 
     onHideModal();
   };
 
   const onCancel = () => {
-    // reset to last‐saved choice
+    // reset to last-saved choice
     setSelectedOption(saveOption.selectedOption);
     onHide();
   };
@@ -86,11 +92,7 @@ function MyModal({
       <Modal.Footer>
         {showAlert && (
           <div style={{ width: "100%" }}>
-            <Alert
-              alertMessage={
-                "Please select who did you want to communicate with"
-              }
-            />
+            <Alert alertMessage={alertMessage} />
           </div>
         )}
         <Button variant="primary" onClick={onSave}>
@@ -101,14 +103,17 @@ function MyModal({
   );
 }
 
-function ModalEdge({ autoOpen = false, sourceLabel, targetLabel }) {
+function ModalEdge({
+  autoOpen = false,
+  sourceLabel,
+  targetLabel,
+  initialSelection = { selectedOption: "+", innerSelectedOption: null },
+  onSaveSelection = () => {}
+}) {
   const [modalShow, setModalShow] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("+");
-  const [innerSelectedOption, setInnerSelectedOption] = useState(null);
-  const [saveOption, setSaveOption] = useState({
-    selectedOption: "+",
-    innerSelectedOption: null,
-  });
+  const [selectedOption, setSelectedOption] = useState(initialSelection.selectedOption);
+  const [innerSelectedOption, setInnerSelectedOption] = useState(initialSelection.innerSelectedOption);
+  const [saveOption, setSaveOption] = useState(initialSelection);
 
   useEffect(() => {
     if (autoOpen) setModalShow(true);
@@ -120,6 +125,11 @@ function ModalEdge({ autoOpen = false, sourceLabel, targetLabel }) {
       setInnerSelectedOption(saveOption.innerSelectedOption);
     }
   }, [modalShow, saveOption]);
+
+  const handleSaveSelection = (newSelection) => {
+    setSaveOption(newSelection);
+    onSaveSelection(newSelection);
+  };
 
   return (
     <>
@@ -139,9 +149,11 @@ function ModalEdge({ autoOpen = false, sourceLabel, targetLabel }) {
         innerSelectedOption={innerSelectedOption}
         setInnerSelectedOption={setInnerSelectedOption}
         saveOption={saveOption}
-        setSaveOption={setSaveOption}
+        setSaveOption={handleSaveSelection}
+        onSaveSelection={onSaveSelection}
       />
     </>
   );
 }
+
 export default ModalEdge;

@@ -2,10 +2,11 @@ import { Panel } from "@xyflow/react";
 import "./CustomPanels.css";
 import Accordion from "react-bootstrap/Accordion";
 import { Alert } from "../alert/Alert";
+import { Button } from "react-bootstrap";
 
 function Instructions() {
   return (
-    <Accordion defaultActiveKey="0" flush>
+    <Accordion  flush>
       <Accordion.Item eventKey="0">
         <Accordion.Header>Instructions</Accordion.Header>
         <Accordion.Body>
@@ -28,6 +29,19 @@ function Instructions() {
   );
 }
 
+function DownloadDataButton( {text}) {
+  const handleDownload = () => {
+    // Logic to download data
+    console.log("Data downloaded");
+  };
+
+  return (
+    <Button variant="dark" onClick={handleDownload}>
+      {text}
+    </Button>
+  );
+}
+
 export default function CustomPanels({ showAlert, alertMessage }) {
   return (
     <>
@@ -40,6 +54,9 @@ export default function CustomPanels({ showAlert, alertMessage }) {
         <div className="instructions-panel">
           <Instructions />
         </div>
+      </Panel>
+      <Panel position="top-right">
+        <DownloadDataButton text="Download Data" />
       </Panel>
       {showAlert && (
         <Panel position="bottom-center">
