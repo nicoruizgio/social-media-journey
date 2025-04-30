@@ -3,11 +3,20 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 import "./ModalNode.css";
+import { Alert } from "../alert/Alert";
 
 function ModalNode(props) {
   const [inputValue, setInputValue] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleSave = () => {
+    if (!inputValue) {
+      setShowAlert(true);
+      setAlertMessage("Please enter an app name");
+      setTimeout(() => setShowAlert(false), 4000);
+      return;
+    }
     props.setSelectedApp(inputValue);
     props.onHide();
   };
@@ -33,8 +42,16 @@ function ModalNode(props) {
           onChange={(e) => setInputValue(e.target.value)}
         />
       </Modal.Body>
+
       <Modal.Footer>
-        <Button onClick={handleSave}>Save</Button>
+      {showAlert && (
+        <div style={{ width: "80%", alignContent: "center", margin: "0 auto" }}>
+          <Alert alertMessage={alertMessage} />
+        </div>
+      )}
+        <Button className="save-btn" onClick={handleSave}>
+          Save
+        </Button>
       </Modal.Footer>
     </Modal>
   );

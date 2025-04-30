@@ -95,7 +95,7 @@ function MyModal({
             <Alert alertMessage={alertMessage} />
           </div>
         )}
-        <Button variant="primary" onClick={onSave}>
+        <Button className="save-btn" onClick={onSave}>
           Save
         </Button>
       </Modal.Footer>
@@ -133,7 +133,7 @@ function ModalEdge({
 
   return (
     <>
-      <Button variant="secondary" size="sm" onClick={() => setModalShow(true)}>
+      <Button className="edge-btn" size="sm" onClick={() => setModalShow(true)}>
         {saveOption.innerSelectedOption !== null
           ? `Communication with ${saveOption.innerSelectedOption}`
           : saveOption.selectedOption}

@@ -147,7 +147,12 @@ const App = () => {
         defaultEdgeOptions={defaultEdgeOptions}
       >
         <Background />
-        <CustomPanels showAlert={showAlert} alertMessage={alertMessage} />
+        <CustomPanels
+          showAlert={showAlert}
+          alertMessage={alertMessage}
+          setAlertMessage={setAlertMessage}
+          setShowAlert={setShowAlert}
+        />
         <Controls />
       </ReactFlow>
     </div>
