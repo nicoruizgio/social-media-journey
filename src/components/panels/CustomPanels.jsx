@@ -9,7 +9,7 @@ export default function CustomPanels({ showAlert, alertMessage, setShowAlert, se
     <>
       <Panel position="top-center">
         <div className="title-panel">
-          <h2>My Social Media Journey</h2>
+          <h1>My Social Media Journey</h1>
         </div>
       </Panel>
       <Panel>

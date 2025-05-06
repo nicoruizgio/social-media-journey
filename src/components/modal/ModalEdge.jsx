@@ -35,9 +35,7 @@ function MyModal({
       const value = otherRef.current?.value?.trim() || innerSelectedOption;
       if (value) {
         if (value === option) {
-          setAlertMessage(
-            "Please enter who did you want to communicate with"
-          );
+          setAlertMessage("Please enter who did you want to communicate with");
           setShowAlert(true);
           setTimeout(() => setShowAlert(false), 4000);
           return;
@@ -108,11 +106,15 @@ function ModalEdge({
   sourceLabel,
   targetLabel,
   initialSelection = { selectedOption: "+", innerSelectedOption: null },
-  onSaveSelection = () => {}
+  onSaveSelection = () => {},
 }) {
   const [modalShow, setModalShow] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(initialSelection.selectedOption);
-  const [innerSelectedOption, setInnerSelectedOption] = useState(initialSelection.innerSelectedOption);
+  const [selectedOption, setSelectedOption] = useState(
+    initialSelection.selectedOption
+  );
+  const [innerSelectedOption, setInnerSelectedOption] = useState(
+    initialSelection.innerSelectedOption
+  );
   const [saveOption, setSaveOption] = useState(initialSelection);
 
   useEffect(() => {
@@ -134,9 +136,16 @@ function ModalEdge({
   return (
     <>
       <Button className="edge-btn" size="sm" onClick={() => setModalShow(true)}>
-        {saveOption.innerSelectedOption !== null
-          ? `Communication with ${saveOption.innerSelectedOption}`
-          : saveOption.selectedOption}
+        {(() => {
+          const buttonText =
+            saveOption.innerSelectedOption !== null
+              ? `Communication with ${saveOption.innerSelectedOption}`
+              : saveOption.selectedOption;
+
+          return buttonText.length > 35
+            ? buttonText.substring(0, 33) + "..."
+            : buttonText;
+        })()}
       </Button>
 
       <MyModal

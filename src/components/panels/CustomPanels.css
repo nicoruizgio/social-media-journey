@@ -1,12 +1,20 @@
 .title-panel {
   background-color: white;
-  padding: 0.5rem 1.5rem;
+  padding: 0.7rem 1.5rem;
   border-color: black;
   border-width: 1px;
   border-style: solid;
   align-self: center;
+  max-width: 35rem;
+  width: 100%;
 }
 
+.title-panel h1 {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+
+}
 .instructions-panel {
   background-color: #ffffff;
   border-color: black;
@@ -15,7 +23,11 @@
   width: 15rem;
 }
 
-
+.instructions-title {
+  font-size: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
 
 .instructions-panel li {
   padding-bottom: 0.5rem;
@@ -23,4 +35,42 @@
   margin: 0rem;
   padding-right: 1rem;
   list-style: decimal;
+}
+
+.download-btn {
+  font-size: 1.25rem;
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+}
+
+
+
+
+@media (max-width: 933px) {
+  .instructions-panel {
+    width: 10rem;
+  }
+  .title-panel h1 {
+    width: 100%;
+
+  }
+  .download-btn {
+    font-size: 1rem;
+    padding: 0.2rem 0.3rem;
+  }
+}
+
+@media (max-width: 812px) {
+  .title-panel {
+    width: 100%;
+  }
+  .instructions-panel {
+    font-size: 1rem;
+  }
+  .title-panel h1 {
+    font-size: 1.7rem;
+  }
+  .instructions-panel li {
+    font-size: 0.6rem;
+  }
 }
