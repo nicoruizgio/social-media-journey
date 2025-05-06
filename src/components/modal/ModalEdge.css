@@ -39,3 +39,13 @@
   background-color: black !important;
   color: white;
 }
+
+/* Target the close “×” button in modals */
+.modal-header .btn-close:focus {
+  /* remove the browser default focus outline */
+  outline: none;
+
+  /* add your own focus ring */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0);
+
+}

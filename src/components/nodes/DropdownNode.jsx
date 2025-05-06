@@ -50,11 +50,13 @@ function DropdownNode({ id, data, isConnectable }) {
   }, [selectedApp, id, setNodes, setEdges]);
 
   return (
-    <div className="input-text-node">
+    <div className="input-text-node" >
       <Handle
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
+        tabIndex={0}
+        role="button"
       />
       <div>
         <DropdownNodeOptions
@@ -67,6 +69,8 @@ function DropdownNode({ id, data, isConnectable }) {
         position={Position.Bottom}
         id="b"
         isConnectable={isConnectable}
+        tabIndex={0}
+        role="button"
       />
     </div>
   );

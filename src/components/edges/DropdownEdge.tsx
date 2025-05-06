@@ -71,6 +71,7 @@ export default function DropdownEdge({
               innerSelectedOption: data?.innerSelectedOption || null,
             }}
             onSaveSelection={updateEdgeData}
+
           />
         </div>
       </EdgeLabelRenderer>

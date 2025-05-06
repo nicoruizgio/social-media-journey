@@ -47,6 +47,7 @@ const App = () => {
       id: "0",
       type: "dropdownNode",
       position: { x: 0, y: 50 },
+
       data: {
         label: "",
         setShowAlert,
@@ -112,6 +113,7 @@ const App = () => {
         id: newId,
         type: "dropdownNode",
         position: flowPos,
+
         data: {
           label: "",
           setShowAlert,

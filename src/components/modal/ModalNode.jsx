@@ -49,7 +49,7 @@ function ModalNode(props) {
           <Alert alertMessage={alertMessage} />
         </div>
       )}
-        <Button className="save-btn" onClick={handleSave}>
+        <Button className="save-btn" onClick={handleSave} variant="dark">
           Save
         </Button>
       </Modal.Footer>

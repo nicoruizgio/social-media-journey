@@ -71,7 +71,7 @@ function MyModal({
   };
 
   return (
-    <Modal show={show} onHide={onCancel} size="lg" centered>
+    <Modal show={show} onHide={onCancel} size="lg" centered variant="dark">
       <Modal.Header closeButton>
         <Modal.Title>
           Why did you move from <b>{sourceLabel}</b> to <b>{targetLabel}</b>?
@@ -93,7 +93,7 @@ function MyModal({
             <Alert alertMessage={alertMessage} />
           </div>
         )}
-        <Button className="save-btn" onClick={onSave}>
+        <Button className="save-btn" onClick={onSave} variant="dark">
           Save
         </Button>
       </Modal.Footer>
@@ -135,7 +135,7 @@ function ModalEdge({
 
   return (
     <>
-      <Button className="edge-btn" size="sm" onClick={() => setModalShow(true)}>
+      <Button className="edge-btn" size="sm" onClick={() => setModalShow(true)} variant="dark">
         {(() => {
           const buttonText =
             saveOption.innerSelectedOption !== null

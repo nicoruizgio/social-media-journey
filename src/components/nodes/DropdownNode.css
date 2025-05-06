@@ -11,3 +11,18 @@
   font-size: 12px;
 }
 
+.input-text-node:focus {
+  border: 1.5px solid #b02a2a;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Kill the browser default on the wrapper */
+.react-flow__node:focus {
+  outline: none;
+}
+
+/* Whenever the wrapper is focused, style your inner div */
+.react-flow__node:focus .input-text-node {
+  border: 1.5px solid rgba(55, 59, 62, 0.8);
+  box-shadow: 0 0 0 4px rgba(55, 59, 62, 0.2);
+}
