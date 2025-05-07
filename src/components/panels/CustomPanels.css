@@ -21,6 +21,7 @@
   border-width: 1px;
   border-style: solid;
   width: 15rem;
+  margin-bottom: 1rem;
 }
 
 .instructions-title {
@@ -43,8 +44,28 @@
   padding: 0.4rem 0.5rem;
 }
 
+.new-node-text {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+}
 
+.new-node-btn {
+  background-color: #ffffff !important;
+  color: black !important;
+  border: 2px solid black !important;
+  margin-bottom: 9cap;
 
+}
+
+.toolbar-btn {
+  background-color: #ffffff !important;
+  color: black !important;
+}
+.toolbar-btn:active {
+  background-color: #000000 !important;
+  color: rgb(255, 255, 255) !important;
+}
 
 @media (max-width: 933px) {
   .instructions-panel {

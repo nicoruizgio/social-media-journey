@@ -18,7 +18,7 @@ import "./index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import DropdownNode from "./components/nodes/DropdownNode.jsx";
+import DropdownNode from "./components/nodes/DropdownNode.tsx";
 import DropdownEdge from "./components/edges/DropdownEdge.tsx";
 
 const nodeTypes = { dropdownNode: DropdownNode };
@@ -103,17 +103,13 @@ const App = () => {
     [nodes, setEdges]
   );
 
-  const onDoubleClick = useCallback(
-    (event) => {
-      const { clientX, clientY } = event;
-      const flowPos = screenToFlowPosition({ x: clientX, y: clientY });
+  const handleCreateNode = useCallback(
+    (position) => {
       const newId = getId();
-
       const newNode = {
         id: newId,
         type: "dropdownNode",
-        position: flowPos,
-
+        position,
         data: {
           label: "",
           setShowAlert,
@@ -124,7 +120,16 @@ const App = () => {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [screenToFlowPosition, setNodes]
+    [setNodes, setShowAlert, setAlertMessage]
+  );
+
+  const onDoubleClick = useCallback(
+    (event) => {
+      const { clientX, clientY } = event;
+      const flowPos = screenToFlowPosition({ x: clientX, y: clientY });
+      handleCreateNode(flowPos);
+    },
+    [screenToFlowPosition, handleCreateNode]
   );
 
   return (
@@ -154,8 +159,9 @@ const App = () => {
           alertMessage={alertMessage}
           setAlertMessage={setAlertMessage}
           setShowAlert={setShowAlert}
+          onCreateNode={handleCreateNode}
         />
-        <Controls />
+
       </ReactFlow>
     </div>
   );

@@ -1,10 +1,23 @@
-import { Panel } from "@xyflow/react";
+
+import { Panel, useReactFlow } from "@xyflow/react";
 import "./CustomPanels.css";
 import { Alert } from "../alert/Alert";
 import DownloadDataButton from "./components/DownloadDataButton";
-import Instructions from "./components/Instructions";
+import Instructions from "./components/Instructions"  ;
+import Toolbar from "./components/Toolbar";
 
-export default function CustomPanels({ showAlert, alertMessage, setShowAlert, setAlertMessage }) {
+
+
+export default function CustomPanels({
+  showAlert,
+  alertMessage,
+  setShowAlert,
+  setAlertMessage,
+  onCreateNode,
+}) {
+  // Get zoom controls from React Flow context
+  const { zoomIn } = useReactFlow();
+
   return (
     <>
       <Panel position="top-center">
@@ -18,7 +31,14 @@ export default function CustomPanels({ showAlert, alertMessage, setShowAlert, se
         </div>
       </Panel>
       <Panel position="top-right">
-        <DownloadDataButton text="Download Data" setAlertMessage={setAlertMessage} setShowAlert={setShowAlert}/>
+        <DownloadDataButton
+          text="Download Data"
+          setAlertMessage={setAlertMessage}
+          setShowAlert={setShowAlert}
+        />
+      </Panel>
+      <Panel position="bottom-left">
+        <Toolbar onCreateNode={onCreateNode} />
       </Panel>
       {showAlert && (
         <Panel position="bottom-center">

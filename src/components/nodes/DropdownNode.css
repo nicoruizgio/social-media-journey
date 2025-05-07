@@ -12,7 +12,7 @@
 }
 
 .input-text-node:focus {
-  border: 1.5px solid #b02a2a;
+  border: 1.5px solid #4299e1;
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -25,4 +25,44 @@
 .react-flow__node:focus .input-text-node {
   border: 1.5px solid rgba(55, 59, 62, 0.8);
   box-shadow: 0 0 0 4px rgba(55, 59, 62, 0.2);
+}
+
+/* --------------------------------------- */
+
+/* Handle styling */
+
+
+/* Handle focus styling for keyboard navigation */
+.react-flow__handle:focus {
+  border: 1.5px solid rgba(55, 59, 62, 0.8);
+  box-shadow: 0 0 0 4px rgba(55, 59, 62, 0.2);
+  transform: scale(1.5);
+  z-index: 10;
+
+}
+
+/* Handle active styling when connection is pending */
+.connecting-handle {
+  background: #4299e1;
+  box-shadow: 0 0 0 4px rgba(33, 146, 233, 0.2);
+  transform: scale(1.5);
+  z-index: 10;
+}
+
+
+
+
+/* Enhance keyboard user experience with visually distinguishable handles */
+.react-flow__handle-bottom {
+  bottom: 0px;
+}
+
+.react-flow__handle-top {
+  top: 0px;
+}
+
+/* Improve focus visibility for dropdown selection */
+.dropdown-content button:focus {
+  box-shadow: 0 0 0 2px #4299e1;
+  outline: none;
 }
