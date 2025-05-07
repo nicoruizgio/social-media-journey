@@ -1,12 +1,9 @@
-
 import { Panel, useReactFlow } from "@xyflow/react";
 import "./CustomPanels.css";
 import { Alert } from "../alert/Alert";
 import DownloadDataButton from "./components/DownloadDataButton";
-import Instructions from "./components/Instructions"  ;
+import Instructions from "./components/Instructions";
 import Toolbar from "./components/Toolbar";
-
-
 
 export default function CustomPanels({
   showAlert,
@@ -15,33 +12,36 @@ export default function CustomPanels({
   setAlertMessage,
   onCreateNode,
 }) {
-  // Get zoom controls from React Flow context
-  const { zoomIn } = useReactFlow();
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
 
   return (
     <>
-      <Panel position="top-center">
-        <div className="title-panel">
+      <Panel position="top-center" onDoubleClickCapture={stopPropagation}>
+        <div className="title-panel" onDoubleClickCapture={stopPropagation}>
           <h1>My Social Media Journey</h1>
         </div>
       </Panel>
-      <Panel>
-        <div className="instructions-panel">
+      <Panel onDoubleClickCapture={stopPropagation}>
+        <div className="instructions-panel" onDoubleClickCapture={stopPropagation}>
           <Instructions />
         </div>
       </Panel>
-      <Panel position="top-right">
+      <Panel position="top-right" onDoubleClickCapture={stopPropagation}>
         <DownloadDataButton
           text="Download Data"
           setAlertMessage={setAlertMessage}
           setShowAlert={setShowAlert}
+          onDoubleClickCapture={stopPropagation}
         />
       </Panel>
-      <Panel position="bottom-left">
+      <Panel position="bottom-left" onDoubleClickCapture={stopPropagation}>
         <Toolbar onCreateNode={onCreateNode} />
       </Panel>
       {showAlert && (
-        <Panel position="bottom-center">
+        <Panel position="bottom-center" onDoubleClickCapture={stopPropagation}>
           <div className="alert-panel">
             <Alert alertMessage={alertMessage} />
           </div>

@@ -2,7 +2,7 @@ import Accordion from "react-bootstrap/Accordion";
 
 const Instructions = () => {
   return (
-    <Accordion flush>
+    <Accordion flush className="instructions-accordion">
       <Accordion.Item eventKey="0">
         <Accordion.Header> <h2 className="instructions-title">Instructions</h2> </Accordion.Header>
         <Accordion.Body>

@@ -14,8 +14,8 @@ const DownloadDataButton = ({ text, setShowAlert, setAlertMessage }) => {
   };
 
   return (
-    <Button variant="dark" onClick={handleDownload}>
-      <h2 className="download-btn">{text}</h2>
+    <Button variant="dark" onClick={handleDownload} className="download-btn">
+      <h2 className="download-btn-text">{text}</h2>
     </Button>
   );
 };

@@ -7,6 +7,7 @@
   align-self: center;
   max-width: 35rem;
   width: 100%;
+  box-shadow:  3.54px 4.55px 0px #00000005, 0px 3.54px 4.55px 0px #0000000d, 0px .51px 1.01px 0px #0000001a;
 }
 
 .title-panel h1 {
@@ -22,6 +23,7 @@
   border-style: solid;
   width: 15rem;
   margin-bottom: 1rem;
+  box-shadow:  3.54px 4.55px 0px #00000005, 0px 3.54px 4.55px 0px #0000000d, 0px .51px 1.01px 0px #0000001a;
 }
 
 .instructions-title {
@@ -38,11 +40,16 @@
   list-style: decimal;
 }
 
-.download-btn {
+.download-btn-text {
   font-size: 1.25rem;
   margin: 0;
   padding: 0.4rem 0.5rem;
 }
+
+.download-btn {
+  box-shadow:  3.54px 4.55px 0px #00000005, 0px 3.54px 4.55px 0px #0000000d, 0px .51px 1.01px 0px #0000001a !important;
+}
+
 
 .new-node-text {
   font-size: 1rem;
@@ -50,7 +57,7 @@
   padding: 0.4rem 0.5rem;
 }
 
-.new-node-btn {
+.new-node-btn{
   background-color: #ffffff !important;
   color: black !important;
   border: 2px solid black !important;
@@ -58,9 +65,20 @@
 
 }
 
+.toolbar {
+  box-shadow:  3.54px 4.55px 0px #00000005, 0px 3.54px 4.55px 0px #0000000d, 0px .51px 1.01px 0px #0000001a;
+
+}
+
 .toolbar-btn {
   background-color: #ffffff !important;
   color: black !important;
+  border-radius: 0% !important;
+}
+
+.toolbar-btn:hover {
+  background-color: #e0e0e0 !important;
+  color: rgb(0, 0, 0) !important;
 }
 .toolbar-btn:active {
   background-color: #000000 !important;

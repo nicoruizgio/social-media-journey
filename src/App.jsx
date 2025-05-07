@@ -13,8 +13,9 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import CustomPanels from "./components/panels/CustomPanels.jsx";
+import Header from "./components/header/Header.jsx";
 
-import "./index.css";
+import "./App.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -125,6 +126,14 @@ const App = () => {
 
   const onDoubleClick = useCallback(
     (event) => {
+      const isPanelClick = event.target.closest(
+        ".title-panel, .instructions-panel, .toolbar, .toolbar-btn-group, .toolbar-btn, .alert-panel"
+      );
+
+      if (isPanelClick) {
+        return;
+      }
+
       const { clientX, clientY } = event;
       const flowPos = screenToFlowPosition({ x: clientX, y: clientY });
       handleCreateNode(flowPos);
@@ -133,37 +142,42 @@ const App = () => {
   );
 
   return (
+    <div style={{ width: "100vw", height: "100vh", display: "flex", flexDirection: "column",  }}>
+    <header style={{ backgroundColor: "#b1b1b7", borderBottom: "1px solid #b1b1b7"}}>
+      <Header />
+    </header>
     <div
       className="wrapper"
       ref={reactFlowWrapper}
-      style={{ width: "100vw", height: "100vh" }}
+
+      style={{ flex: 1, overflow: "hidden", borderRadius: "8px" }}
       onDoubleClickCapture={onDoubleClick}
     >
       <ReactFlow
-        style={{ backgroundColor: "#F7F9FB" }}
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        fitView
-        fitViewOptions={{ padding: 2 }}
-        nodeOrigin={nodeOrigin}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        defaultEdgeOptions={defaultEdgeOptions}
-      >
-        <Background />
-        <CustomPanels
-          showAlert={showAlert}
-          alertMessage={alertMessage}
-          setAlertMessage={setAlertMessage}
-          setShowAlert={setShowAlert}
-          onCreateNode={handleCreateNode}
-        />
-
-      </ReactFlow>
-    </div>
+          style={{ backgroundColor: "#F7F9FB" }}
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          fitView
+          fitViewOptions={{ padding: 2 }}
+          nodeOrigin={nodeOrigin}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          defaultEdgeOptions={defaultEdgeOptions}
+        >
+          <Background />
+          <CustomPanels
+            showAlert={showAlert}
+            alertMessage={alertMessage}
+            setAlertMessage={setAlertMessage}
+            setShowAlert={setShowAlert}
+            onCreateNode={handleCreateNode}
+          />
+        </ReactFlow>
+      </div>
+      </div>
   );
 };
 
