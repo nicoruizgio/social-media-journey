@@ -50,39 +50,15 @@
   box-shadow:  3.54px 4.55px 0px #00000005, 0px 3.54px 4.55px 0px #0000000d, 0px .51px 1.01px 0px #0000001a !important;
 }
 
-
-.new-node-text {
-  font-size: 1rem;
-  margin: 0;
-  padding: 0.4rem 0.5rem;
-}
-
-.new-node-btn{
-  background-color: #ffffff !important;
-  color: black !important;
-  border: 2px solid black !important;
-  margin-bottom: 9cap;
+.download-btn-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
 }
 
-.toolbar {
-  box-shadow:  3.54px 4.55px 0px #00000005, 0px 3.54px 4.55px 0px #0000000d, 0px .51px 1.01px 0px #0000001a;
-
-}
-
-.toolbar-btn {
-  background-color: #ffffff !important;
-  color: black !important;
-  border-radius: 0% !important;
-}
-
-.toolbar-btn:hover {
-  background-color: #e0e0e0 !important;
-  color: rgb(0, 0, 0) !important;
-}
-.toolbar-btn:active {
-  background-color: #000000 !important;
-  color: rgb(255, 255, 255) !important;
+.download-icon {
+  font-size: 1.5rem;
 }
 
 @media (max-width: 933px) {
@@ -94,12 +70,19 @@
 
   }
   .download-btn {
-    font-size: 1rem;
+
     padding: 0.2rem 0.3rem;
   }
+  .download-btn-text {
+    font-size: 1rem;
+  }
+  .download-icon {
+    font-size: 1.1rem;
+  }
+
 }
 
-@media (max-width: 812px) {
+@media (max-width: 842px) {
   .title-panel {
     width: 100%;
   }
@@ -112,4 +95,15 @@
   .instructions-panel li {
     font-size: 0.6rem;
   }
+  .download-btn {
+
+    padding: 0.1rem 0.2rem;
+  }
+  .download-btn-text {
+    font-size: 0.8rem;
+  }
+  .download-icon {
+    font-size: 0.8rem;
+  }
+
 }

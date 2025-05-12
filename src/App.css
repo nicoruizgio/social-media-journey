@@ -1,3 +1,31 @@
-.wrapper {
-  border-radius: 10px;
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+.wrapper {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #F7F9FB;  /* moved here */
+}
+
+/* Skip link styles */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #005fcc;
+  color: white;
+  padding: 8px 16px;
+  z-index: 1000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.skip-link:focus {
+  top: 10px;
+}
+

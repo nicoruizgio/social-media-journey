@@ -12,8 +12,9 @@ import {
   MarkerType,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import CustomPanels from "./components/panels/CustomPanels.jsx";
 import Header from "./components/header/Header.jsx";
+import { Alert } from "./components/alert/Alert.jsx";
+import Toolbar from "./components/toolbar/Toolbar.jsx";
 
 import "./App.css";
 
@@ -142,18 +143,22 @@ const App = () => {
   );
 
   return (
-    <div style={{ width: "100vw", height: "100vh", display: "flex", flexDirection: "column",  }}>
-    <header style={{ backgroundColor: "#b1b1b7", borderBottom: "1px solid #b1b1b7"}}>
-      <Header />
-    </header>
-    <div
-      className="wrapper"
-      ref={reactFlowWrapper}
+    <div className="app-container">
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+      <header >
+        <Header setAlertMessage={setAlertMessage} setShowAlert={setShowAlert} />
+      </header>
 
-      style={{ flex: 1, overflow: "hidden", borderRadius: "8px" }}
-      onDoubleClickCapture={onDoubleClick}
-    >
-      <ReactFlow
+      <div
+        id="main-content"
+        role="main"
+        className="wrapper"
+        ref={reactFlowWrapper}
+        onDoubleClickCapture={onDoubleClick}
+      >
+        <ReactFlow
           style={{ backgroundColor: "#F7F9FB" }}
           nodes={nodes}
           edges={edges}
@@ -167,17 +172,12 @@ const App = () => {
           edgeTypes={edgeTypes}
           defaultEdgeOptions={defaultEdgeOptions}
         >
+          <Toolbar onCreateNode={handleCreateNode} />
+          <Alert alertMessage={alertMessage} showAlert={showAlert} />
           <Background />
-          <CustomPanels
-            showAlert={showAlert}
-            alertMessage={alertMessage}
-            setAlertMessage={setAlertMessage}
-            setShowAlert={setShowAlert}
-            onCreateNode={handleCreateNode}
-          />
         </ReactFlow>
       </div>
-      </div>
+    </div>
   );
 };
 

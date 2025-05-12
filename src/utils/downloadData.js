@@ -1,47 +1,43 @@
-export function downloadData(nodes, edges, setShowAlert, setAlertMessage) {
-  // Prepare nodes data
-  const nodesData = nodes.map((node) => {
-    const invalid = !node.data.label || node.data.label === "Select App";
-    if (invalid) {
-      setAlertMessage("Please select an app for all nodes before downloading");
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 4000);
-      return null; // Skip invalid nodes
-    }
-    return {
-      id: node.id,
-      label: node.data.label,
-    };
-  });
-
-  // Filter out null values from invalid nodes
-  const validNodesData = nodesData.filter((node) => node !== null);
-
-  // If we have invalid nodes, stop the download process
-  if (validNodesData.length < nodes.length) {
-    return;
+export function downloadData(nodes, edges, setAlertMessage, setShowAlert) {
+  // Check for invalid nodes first
+  const invalidNode = nodes.find(node => !node.data.label || node.data.label === "Select App");
+  if (invalidNode) {
+    setAlertMessage("Please select an app for all nodes before downloading");
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 4000);
+    return; // Stop here if any node is invalid
   }
 
-  // Prepare edges data
+  // Prepare nodes data (now we know all are valid)
+  const validNodesData = nodes.map((node) => ({
+    id: node.id,
+    label: node.data.label,
+  }));
+
+  // Check for invalid edges
+  const invalidEdge = edges.find(edge => {
+    const connection = edge.data.innerSelectedOption
+      ? `Communication with ${edge.data.innerSelectedOption}`
+      : edge.data.selectedOption;
+    return !connection || connection === "+";
+  });
+
+  if (invalidEdge) {
+    setAlertMessage("Please select a reason for migrating for all connections before downloading");
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 4000);
+    return; // Stop here if any edge is invalid
+  }
+
+  // Prepare edges data (now we know all are valid)
   const edgesData = edges.map((edge) => {
     const connection = edge.data.innerSelectedOption
       ? `Communication with ${edge.data.innerSelectedOption}`
       : edge.data.selectedOption;
-
-    const invalid = !connection || connection === "+";
-    if (invalid) {
-      setAlertMessage(
-        "Please select a reason for migrating for all connections before downloading"
-      );
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 4000);
-      return null; // Skip invalid edges
-    }
-
     return {
       id: `${edge.source}-${edge.target}`,
       sourceId: edge.source,

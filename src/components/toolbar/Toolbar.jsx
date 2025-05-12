@@ -1,5 +1,5 @@
 import { useReactFlow } from '@xyflow/react'
-import { findNodePosition } from '../../../utils/findNodePosition'
+import { findNodePosition } from '../../utils/findNodePosition'
 import  {Button}  from 'react-bootstrap'
 import {ButtonGroup} from 'react-bootstrap'
 import { MdAddCircle } from "react-icons/md";
@@ -7,6 +7,9 @@ import { FiZoomIn } from "react-icons/fi";
 import { FiZoomOut } from "react-icons/fi";
 import { MdOutlineZoomInMap } from "react-icons/md";
 import { useCallback } from 'react';
+import { Panel } from '@xyflow/react'
+
+import "./Toolbar.css";
 
 
 const Toolbar = ({onCreateNode}) => {
@@ -52,7 +55,8 @@ const Toolbar = ({onCreateNode}) => {
     }
   ]
   return (
-    <div className="toolbar" onDoubleClickCapture={stopPropagation}>
+    <Panel position="bottom-left" onDoubleClickCapture={stopPropagation}>
+    <div className="toolbar" onDoubleClickCapture={stopPropagation} role='group' aria-label='Toolbar'>
       <ButtonGroup className="toolbar-btn-group" vertical onDoubleClickCapture={stopPropagation}>
       {buttons.map((button, index) => (
         <Button
@@ -69,6 +73,7 @@ const Toolbar = ({onCreateNode}) => {
       ))}
       </ButtonGroup>
     </div>
+    </Panel>
   )
 }
 

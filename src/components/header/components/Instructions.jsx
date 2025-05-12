@@ -4,7 +4,7 @@ const Instructions = () => {
   return (
     <Accordion flush className="instructions-accordion">
       <Accordion.Item eventKey="0">
-        <Accordion.Header> <h2 className="instructions-title">Instructions</h2> </Accordion.Header>
+        <Accordion.Header> <span className="instructions-title">Instructions</span> </Accordion.Header>
         <Accordion.Body>
           <li>
             <b>Double click </b>on the workspace to create a <b>new node</b>

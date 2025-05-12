@@ -1,10 +1,23 @@
 import React from 'react'
 import { CAlert } from '@coreui/react'
+import { Panel } from "@xyflow/react";
+import '@coreui/coreui/dist/css/coreui.min.css'; // Make sure CoreUI CSS is imported
 
-export const Alert = ({alertMessage}) => {
+export const Alert = ({alertMessage, showAlert}) => {
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
   return (
-    <CAlert color="danger">
-      {alertMessage}
-    </CAlert>
-  )
+    showAlert && (
+      <Panel position="bottom-center" onDoubleClickCapture={stopPropagation}>
+        <div className="alert-panel" role="alert">
+          <CAlert color="danger" visible={showAlert}>
+            <strong>{alertMessage}</strong>
+          </CAlert>
+        </div>
+      </Panel>
+    )
+  );
 }
