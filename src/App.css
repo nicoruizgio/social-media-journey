@@ -17,8 +17,8 @@
   position: absolute;
   top: -40px;
   left: 0;
-  background: #005fcc;
-  color: white;
+  background: #E0E0E0 ;
+  color: rgb(15, 15, 15);
   padding: 8px 16px;
   z-index: 1000;
   text-decoration: none;
@@ -27,5 +27,7 @@
 
 .skip-link:focus {
   top: 10px;
+  left: 10px;
+
 }
 

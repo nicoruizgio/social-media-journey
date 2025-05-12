@@ -20,32 +20,25 @@
   color: white;
 }
 
-
-
 /* Change edge button layout */
-.edge-btn{
-  background-color: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
+.edge-btn {
+  background-color: #e0e0e0;
+  color: rgb(0, 0, 0);
   border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .edge-btn:hover {
-  background-color: #000000;
-  color: rgb(255, 255, 255);
-  border: 1px solid #aaa;
+  background-color: #e0e0e0;
+  color: rgb(0, 0, 0);
+  border: 2px solid #aaa;
+  border-radius: 4px;
 }
 
-.edge-btn:active {
-  background-color: black !important;
-  color: white;
-}
 
-/* Target the close “×” button in modals */
+
 .modal-header .btn-close:focus {
-  /* remove the browser default focus outline */
   outline: none;
 
-  /* add your own focus ring */
   box-shadow: 0 0 0 3px rgba(0, 0, 0);
-
 }

@@ -22,7 +22,7 @@ function DropdownNodeOptions({selectedApp, setSelectedApp}) {
       <DropdownButton id="dropdown-basic-button" title={selectedApp} bsPrefix="dropdown-btn">
         {apps.map((app, index) => (
           <Dropdown.Item
-          className={activeItem === index ? "active-item" : ""}
+          className={activeItem === index ? "active-item" : "node-options"}
             key={index}
             onClick={() => {
               app.type === "text"
