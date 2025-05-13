@@ -15,7 +15,7 @@ import "@xyflow/react/dist/style.css";
 import Header from "./components/header/Header.jsx";
 import { Alert } from "./components/alert/Alert.jsx";
 import Toolbar from "./components/toolbar/Toolbar.jsx";
-
+import { ConnectionProvider } from './context/ConnectionContext';
 import "./App.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -183,6 +183,8 @@ const App = () => {
 
 export default () => (
   <ReactFlowProvider>
-    <App />
+    <ConnectionProvider>
+      <App />
+    </ConnectionProvider>
   </ReactFlowProvider>
 );

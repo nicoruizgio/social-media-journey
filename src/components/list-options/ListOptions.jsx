@@ -13,10 +13,8 @@ function ListOptions({
   setInnerSelectedOption,
 }) {
   const [openAccordion, setOpenAccordion] = useState(null);
-  // New state to track if we've made a selection in the accordion
   const [hasInnerSelection, setHasInnerSelection] = useState(false);
 
-  // Update hasInnerSelection whenever innerSelectedOption changes
   useEffect(() => {
     if (innerSelectedOption) {
       setHasInnerSelection(true);
@@ -45,14 +43,9 @@ function ListOptions({
     },
   ];
 
-  // Modify this function to better handle accordion state
   const handleAccordionKeyDown = (e, optLabel) => {
-    if (e.key === 'Tab') {
-      // Don't stop propagation - let tab navigation work normally
-
-      // Keep accordion open if we have an inner selection
+    if (e.key === "Tab") {
       if (openAccordion === optLabel && hasInnerSelection) {
-        // Keep the parent selected
         setSelectedOption(optLabel);
       }
     }
@@ -70,7 +63,7 @@ function ListOptions({
               onClick={() => {
                 setSelectedOption(opt.label);
                 setOpenAccordion(null);
-                // clear the uncontrolled input DOM node:
+
                 if (otherRef.current) otherRef.current.value = "";
               }}
             >
@@ -79,7 +72,6 @@ function ListOptions({
           );
         }
 
-        // accordion header
         const isOpen = openAccordion === opt.label;
         return (
           <div key={i}>
@@ -92,12 +84,11 @@ function ListOptions({
                 if (!isOpen && otherRef.current) otherRef.current.value = "";
               }}
               onBlur={(e) => {
-                // Only reset if focus is moving completely outside the component
-                // AND we don't have an inner selection
-                if (!e.currentTarget.contains(e.relatedTarget) && !hasInnerSelection) {
-                  // Don't close the accordion if we have a selection
+                if (
+                  !e.currentTarget.contains(e.relatedTarget) &&
+                  !hasInnerSelection
+                ) {
                 } else if (hasInnerSelection) {
-                  // Keep the accordion open
                   setOpenAccordion(opt.label);
                 }
               }}
@@ -121,15 +112,14 @@ function ListOptions({
                           onClick={(e) => {
                             e.stopPropagation();
                             setInnerSelectedOption(innerOpt.label);
-                            setHasInnerSelection(true); // Mark that we have a selection
+                            setHasInnerSelection(true);
                           }}
                           onKeyDown={(e) => {
-                            // Only activate on Enter or Space key
-                            if (e.key === 'Enter' || e.key === ' ') {
+                            if (e.key === "Enter" || e.key === " ") {
                               e.preventDefault();
                               e.stopPropagation();
                               setInnerSelectedOption(innerOpt.label);
-                              setHasInnerSelection(true); // Mark that we have a selection
+                              setHasInnerSelection(true);
                             }
                           }}
                         >
@@ -137,13 +127,13 @@ function ListOptions({
                         </ListGroup.Item>
                       );
                     }
-                    // the “Other” uncontrolled input:
+
                     return (
                       <ListGroup.Item
                         key={j}
                         className="d-flex"
                         action
-                        active={innerSelectedOption === "Other"} // Add active state for "Other"
+                        active={innerSelectedOption === "Other"}
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Form.Control
@@ -151,15 +141,15 @@ function ListOptions({
                           placeholder="Other"
                           ref={otherRef}
                           onFocus={() => {
-                            // Don't overwrite existing selection when tabbing to "Other"
-                            // Only set if we don't already have a selection
-                            if (!innerSelectedOption || innerSelectedOption === opt.label) {
+                            if (
+                              !innerSelectedOption ||
+                              innerSelectedOption === opt.label
+                            ) {
                               setInnerSelectedOption("Other");
                               setHasInnerSelection(true);
                             }
                           }}
                           onChange={() => {
-                            // Set inner selection to "Other" when user types
                             setInnerSelectedOption("Other");
                             setHasInnerSelection(true);
                           }}

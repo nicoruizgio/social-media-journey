@@ -6,14 +6,11 @@
   cursor: pointer;
 }
 
-
 .dropdown-item:active {
-  background-color: #E0E0E0 ; /* override default blue */
-  color: rgb(0, 0, 0) !important; /* optional - make text white for contrast */
-}
-
-.node-options:hover {
-  background-color: #e0e0e048 ;
+  background-color: #e0e0e0;
   color: rgb(0, 0, 0) !important;
-
+}
+.node-options:hover {
+  background-color: #e0e0e048;
+  color: rgb(0, 0, 0) !important;
 }

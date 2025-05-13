@@ -21,7 +21,7 @@ export default function DropdownEdge({
   data,
   style = {},
   markerEnd,
-}: EdgeProps) {
+}: EdgeProps & { data?: { openModal?: boolean; [key: string]: any } }) {
   const { setEdges } = useReactFlow();
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
@@ -32,7 +32,7 @@ export default function DropdownEdge({
     targetPosition,
   });
 
-  // Function to update edge data when selection is saved
+  // update edge data when selection is saved
   const updateEdgeData = (selectionData) => {
     setEdges((eds) =>
       eds.map((edge) => {
@@ -70,7 +70,7 @@ export default function DropdownEdge({
               selectedOption: data?.selectedOption || "+",
               innerSelectedOption: data?.innerSelectedOption || null,
             }}
-            onSaveSelection={updateEdgeData}
+            onSaveSelection={() => updateEdgeData}
 
           />
         </div>

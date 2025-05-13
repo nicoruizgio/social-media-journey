@@ -1,145 +1,118 @@
 import { useState, useEffect } from "react";
-import { Handle, Position, useReactFlow, NodeProps, addEdge } from "@xyflow/react";
+import {
+  Handle,
+  Position,
+  useReactFlow,
+  NodeProps,
+  addEdge,
+} from "@xyflow/react";
 import "./DropdownNode.css";
 import DropdownNodeOptions from "../dropdown-node-options/DropwdownNodeOptions";
-
-// Global connection state (outside component for persistence across all nodes)
-let globalConnectionState = null;
-
-// Custom event name
-const CONNECTION_COMPLETED_EVENT = 'connection-completed';
+import { validateConnection, createConnectionParams } from "../../utils/connectionUtils";
+import { showTemporaryAlert } from "../../utils/alertUtils";
+import { useConnection } from "../../context/ConnectionContext";
 
 function DropdownNode({ id, data, isConnectable }: NodeProps) {
   const { setShowAlert, setAlertMessage } = data;
-  const reactFlowInstance = useReactFlow();
-  const { getEdges, getNodes, setNodes, setEdges } = reactFlowInstance;
+  const { getEdges, getNodes, setNodes, setEdges } = useReactFlow();
   const [selectedApp, _setSelectedApp] = useState(data.label || "Select App");
-  const [pendingConnection, setPendingConnection] = useState(null);
+  const { pendingConnection, startConnection, resetConnection } = useConnection();
 
-  // Listen for connection completed events
-  useEffect(() => {
-    const handleConnectionCompleted = () => {
-      // Reset connection state when any connection is completed
-      setPendingConnection(null);
-
-      // Force a reset by clearing connecting-handle class
-      const handles = document.querySelectorAll('.react-flow__handle');
-      handles.forEach(handle => {
-        if (handle.classList.contains('connecting-handle')) {
-          handle.classList.remove('connecting-handle');
-          handle.style.display = 'none';
-          void handle.offsetHeight; // Triggers a reflow
-          handle.style.display = '';
-        }
-      });
-    };
-
-    document.addEventListener(CONNECTION_COMPLETED_EVENT, handleConnectionCompleted);
-    return () => document.removeEventListener(CONNECTION_COMPLETED_EVENT, handleConnectionCompleted);
-  }, []);
-
-  // Handle keyboard interactions for creating connections
-  function onHandleKeyDown(event, nodeId, handleType) {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
+  function handleKeyDown(event: React.KeyboardEvent, handleType: string) {
+    if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
 
-    // Toggle connection state
-    if (!globalConnectionState) {
-      globalConnectionState = { nodeId, handleType };
-      setPendingConnection({ nodeId, handleType });
+    if (!pendingConnection) {
+      // Start new connection
+      startConnection(id, handleType);
     } else {
-      const { nodeId: fromId, handleType: fromType } = globalConnectionState;
+      // Try to complete connection
+      const { nodeId: fromId, handleType: fromType } = pendingConnection;
 
-      // Valid: different nodes and different handle types
-      if (fromId !== nodeId && fromType !== handleType) {
-        const params = fromType === 'source' && handleType === 'target'
-          ? { source: fromId, target: nodeId, sourceHandle: 'b', targetHandle: 'a' }
-          : fromType === 'target' && handleType === 'source'
-            ? { source: nodeId, target: fromId, sourceHandle: 'b', targetHandle: 'a' }
-            : null;
+      if (fromId !== id && fromType !== handleType) {
+        const params = createConnectionParams(fromId, fromType, id, handleType);
 
         if (params) {
-          createConnection(params);
+          const sourceNode = getNodes().find(n => n.id === params.source);
+          const targetNode = getNodes().find(n => n.id === params.target);
+
+          const validation = validateConnection(sourceNode!, targetNode!);
+
+          if (!validation.valid) {
+            showTemporaryAlert(validation.message!, setShowAlert, setAlertMessage);
+          } else {
+            createConnection(params);
+          }
         }
       }
 
-      globalConnectionState = null;
-      setPendingConnection(null);
+      resetConnection();
     }
   }
 
-  // Create a new connection
-  const createConnection = (params) => {
+  const createConnection = (params: any) => {
     const sourceNode = getNodes().find((n) => n.id === params.source);
-    const targetNode = getNodes().find((n) => n.id === params.target);
 
-    // Validation logic
-    const invalid = (node) => !node?.data?.label || node.data.label === "Select App";
-    if (invalid(sourceNode) || invalid(targetNode)) {
-      showAlert("Please select an app for both nodes before connecting");
-      return false;
-    }
-    if (sourceNode.data.label === targetNode.data.label) {
-      showAlert("You cannot connect nodes with the same app");
-      return false;
-    }
+    setEdges((eds) =>
+      addEdge(
+        {
+          ...params,
+          type: "dropdownEdge",
+          data: {
+            openModal: true,
+            sourceLabel: sourceNode!.data.label,
+            targetLabel: getNodes().find(n => n.id === params.target)!.data.label,
+            selectedOption: "+",
+            innerSelectedOption: null,
+          },
+        },
+        eds
+      )
+    );
 
-    // Create the edge
-    setEdges(eds => addEdge({
-      ...params,
-      type: "dropdownEdge",
-      data: {
-        openModal: true,
-        sourceLabel: sourceNode.data.label,
-        targetLabel: targetNode.data.label,
-        selectedOption: "+",
-        innerSelectedOption: null,
-      },
-    }, eds));
-
-    // Reset connection states
-    globalConnectionState = null;
-    setPendingConnection(null);
-
-    // Notify all nodes
-    document.dispatchEvent(new CustomEvent(CONNECTION_COMPLETED_EVENT));
     return true;
   };
 
-  // Helper functions and state management
-  const showAlert = (message) => {
-    setShowAlert(true);
-    setAlertMessage(message);
-    setTimeout(() => setShowAlert(false), 4000);
-  };
+  const setSelectedApp = (newApp: string) => {
+    const connected = getEdges().filter(
+      (e) => e.source === id || e.target === id
+    );
 
-  const setSelectedApp = (newApp) => {
-    const connected = getEdges().filter(e => e.source === id || e.target === id);
-    const conflict = connected.some(edge => {
-      const otherLabel = edge.source === id ? edge.data.targetLabel : edge.data.sourceLabel;
+    const conflict = connected.some((edge) => {
+      const otherLabel =
+        edge.source === id ? edge.data.targetLabel : edge.data.sourceLabel;
       return otherLabel === newApp;
     });
 
     if (conflict) {
-      showAlert("You cannot connect nodes with the same app");
+      showTemporaryAlert("You cannot connect nodes with the same app", setShowAlert, setAlertMessage);
       return;
     }
+
     _setSelectedApp(newApp);
   };
 
   useEffect(() => {
-    setNodes(nds => nds.map(n =>
-      n.id === id ? { ...n, data: { ...n.data, label: selectedApp } } : n
-    ));
-    setEdges(eds => eds.map(e => {
-      if (e.source === id) return { ...e, data: { ...e.data, sourceLabel: selectedApp } };
-      if (e.target === id) return { ...e, data: { ...e.data, targetLabel: selectedApp } };
-      return e;
-    }));
+    // Update nodes and edges when selected app changes
+    setNodes((nds) =>
+      nds.map((n) =>
+        n.id === id ? { ...n, data: { ...n.data, label: selectedApp } } : n
+      )
+    );
+
+    setEdges((eds) =>
+      eds.map((e) => {
+        if (e.source === id)
+          return { ...e, data: { ...e.data, sourceLabel: selectedApp } };
+        if (e.target === id)
+          return { ...e, data: { ...e.data, targetLabel: selectedApp } };
+        return e;
+      })
+    );
   }, [selectedApp, id, setNodes, setEdges]);
 
-  const isPendingSource = pendingConnection?.nodeId === id && pendingConnection?.handleType === 'source';
-  const isPendingTarget = pendingConnection?.nodeId === id && pendingConnection?.handleType === 'target';
+  const isPendingSource = pendingConnection?.nodeId === id && pendingConnection?.handleType === "source";
+  const isPendingTarget = pendingConnection?.nodeId === id && pendingConnection?.handleType === "target";
 
   return (
     <div className="input-text-node">
@@ -149,8 +122,9 @@ function DropdownNode({ id, data, isConnectable }: NodeProps) {
         id="b"
         isConnectable={isConnectable}
         tabIndex={0}
-        onKeyDown={(e) => onHandleKeyDown(e, id, 'source')}
-        className={isPendingSource ? 'connecting-handle' : ''}
+        onKeyDown={(e) => handleKeyDown(e, "source")}
+        className={isPendingSource ? "connecting-handle" : ""}
+        aria-label="Connect from this node"
       />
 
       <div>
@@ -166,8 +140,9 @@ function DropdownNode({ id, data, isConnectable }: NodeProps) {
         id="a"
         isConnectable={isConnectable}
         tabIndex={0}
-        onKeyDown={(e) => onHandleKeyDown(e, id, 'target')}
-        className={isPendingTarget ? 'connecting-handle' : ''}
+        onKeyDown={(e) => handleKeyDown(e, "target")}
+        className={isPendingTarget ? "connecting-handle" : ""}
+        aria-label="Connect to this node"
       />
     </div>
   );

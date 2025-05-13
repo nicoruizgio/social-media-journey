@@ -9,10 +9,10 @@
   flex: 1;
   overflow: hidden;
   border-radius: 8px;
-  background-color: #F7F9FB;  /* moved here */
+  background-color: #F7F9FB;
 }
 
-/* Skip link styles */
+
 .skip-link {
   position: absolute;
   top: -40px;

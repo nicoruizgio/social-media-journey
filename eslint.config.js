@@ -3,6 +3,7 @@ import globals from 'globals'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
+import { propTypes } from 'react-bootstrap/esm/Image'
 
 export default [
   { ignores: ['dist'] },
@@ -24,6 +25,8 @@ export default [
       'react-refresh': reactRefresh,
     },
     rules: {
+      'no-unused-vars': 'off',
+      'react/propTypes': "off",
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,

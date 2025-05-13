@@ -44,11 +44,13 @@ function ModalNode(props) {
       </Modal.Body>
 
       <Modal.Footer>
-      {showAlert && (
-        <div style={{ width: "80%", alignContent: "center", margin: "0 auto" }}>
-          <Alert alertMessage={alertMessage} />
-        </div>
-      )}
+        {showAlert && (
+          <div
+            style={{ width: "80%", alignContent: "center", margin: "0 auto" }}
+          >
+            <Alert alertMessage={alertMessage} />
+          </div>
+        )}
         <Button className="save-btn" onClick={handleSave} variant="dark">
           Save
         </Button>

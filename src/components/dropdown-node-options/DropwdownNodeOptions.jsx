@@ -4,8 +4,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import ModalNode from "../modal/ModalNode";
 import "./DropdownNodeOptions.css";
 
-function DropdownNodeOptions({selectedApp, setSelectedApp}) {
-
+function DropdownNodeOptions({ selectedApp, setSelectedApp }) {
   const [modalShow, setModalShow] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
 
@@ -19,10 +18,14 @@ function DropdownNodeOptions({selectedApp, setSelectedApp}) {
 
   return (
     <>
-      <DropdownButton id="dropdown-basic-button" title={selectedApp} bsPrefix="dropdown-btn">
+      <DropdownButton
+        id="dropdown-basic-button"
+        title={selectedApp}
+        bsPrefix="dropdown-btn"
+      >
         {apps.map((app, index) => (
           <Dropdown.Item
-          className={activeItem === index ? "active-item" : "node-options"}
+            className={activeItem === index ? "active-item" : "node-options"}
             key={index}
             onClick={() => {
               app.type === "text"

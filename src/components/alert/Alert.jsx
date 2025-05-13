@@ -1,7 +1,8 @@
 import React from 'react'
 import { CAlert } from '@coreui/react'
 import { Panel } from "@xyflow/react";
-import '@coreui/coreui/dist/css/coreui.min.css'; // Make sure CoreUI CSS is imported
+import '@coreui/coreui/dist/css/coreui.min.css';
+
 
 export const Alert = ({alertMessage, showAlert}) => {
   const stopPropagation = (e) => {

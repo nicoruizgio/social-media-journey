@@ -55,17 +55,14 @@ function MyModal({
       innerSelectedOption: inner,
     };
 
-    // Update local state
     setSaveOption(newSelection);
 
-    // Call the parent function to update the edge data
     onSaveSelection(newSelection);
 
     onHideModal();
   };
 
   const onCancel = () => {
-    // reset to last-saved choice
     setSelectedOption(saveOption.selectedOption);
     onHide();
   };
@@ -135,7 +132,12 @@ function ModalEdge({
 
   return (
     <>
-      <Button className="edge-btn" size="sm" onClick={() => setModalShow(true)} variant="dark">
+      <Button
+        className="edge-btn"
+        size="sm"
+        onClick={() => setModalShow(true)}
+        variant="dark"
+      >
         {(() => {
           const buttonText =
             saveOption.innerSelectedOption !== null
