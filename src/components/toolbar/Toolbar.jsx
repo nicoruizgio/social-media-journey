@@ -33,7 +33,7 @@ const Toolbar = ({onCreateNode}) => {
       label: <MdAddCircle />,
       onClick: handleCreateNode,
       ariaLabel: 'Create node',
-      title: 'Create node'
+      title: 'Add node'
     },
     {
       label: <FiZoomIn />,
@@ -56,7 +56,7 @@ const Toolbar = ({onCreateNode}) => {
   ]
   return (
     <Panel position="bottom-left" onDoubleClickCapture={stopPropagation}>
-    <div className="toolbar" onDoubleClickCapture={stopPropagation} role='group' aria-label='Toolbar'>
+    <div className="toolbar" onDoubleClickCapture={stopPropagation} role='region' aria-label='Toolbar'>
       <ButtonGroup className="toolbar-btn-group" vertical onDoubleClickCapture={stopPropagation}>
       {buttons.map((button, index) => (
         <Button

@@ -1,6 +1,6 @@
 import React from "react";
 import { Panel, useReactFlow } from "@xyflow/react";
-import Instructions from "./components/Instructions";
+import Help from "./components/Help";
 import DownloadDataButton from "./components/DownloadDataButton";
 
 import "./Header.css";
@@ -21,8 +21,10 @@ const Header = ({setAlertMessage, setShowAlert}) => {
         <div
           className="instructions-panel"
           onDoubleClickCapture={stopPropagation}
+          role="complementary"
+          aria-label="Help"
         >
-          <Instructions />
+          <Help/>
         </div>
       </Panel>
       <Panel position="top-right" onDoubleClickCapture={stopPropagation}>

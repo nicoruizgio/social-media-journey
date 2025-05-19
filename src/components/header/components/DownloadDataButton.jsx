@@ -17,7 +17,7 @@ const DownloadDataButton = ({ text, setShowAlert, setAlertMessage }) => {
     <Button variant="dark" onClick={handleDownload} className="download-btn" aria-label="Download data">
       <div className="download-btn-content">
         <MdOutlineFileDownload  className="download-icon" aria-hidden="true"/>
-        <h2 className="download-btn-text">{text}</h2>
+        <span className="download-btn-text">{text}</span>
       </div>
     </Button>
   );

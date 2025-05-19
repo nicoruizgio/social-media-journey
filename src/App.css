@@ -9,15 +9,14 @@
   flex: 1;
   overflow: hidden;
   border-radius: 8px;
-  background-color: #F7F9FB;
+  background-color: #f7f9fb;
 }
-
 
 .skip-link {
   position: absolute;
   top: -40px;
   left: 0;
-  background: #E0E0E0 ;
+  background: #e0e0e0;
   color: rgb(15, 15, 15);
   padding: 8px 16px;
   z-index: 1000;
@@ -28,6 +27,4 @@
 .skip-link:focus {
   top: 10px;
   left: 10px;
-
 }
-

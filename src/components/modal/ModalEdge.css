@@ -24,14 +24,14 @@
 .edge-btn {
   background-color: #e0e0e0;
   color: rgb(0, 0, 0);
-  border: 1px solid #ccc;
+  border: 0px solid #ccc;
   border-radius: 4px;
 }
 
 .edge-btn:hover {
   background-color: #e0e0e0;
   color: rgb(0, 0, 0);
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   border-radius: 4px;
 }
 

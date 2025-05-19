@@ -1,0 +1,10 @@
+.instructions-accordion ul {
+  list-style: none;
+  padding-left: 0.8rem;
+  margin: 0;
+
+}
+
+.instructions-accordion li {
+  margin-bottom: 0.5rem;
+}
