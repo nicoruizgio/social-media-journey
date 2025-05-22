@@ -17,9 +17,8 @@ export function downloadData(nodes, edges, setAlertMessage, setShowAlert) {
   }));
 
   const invalidEdge = edges.find((edge) => {
-    const connection = edge.data.innerSelectedOption
-      ? `Communication with ${edge.data.innerSelectedOption}`
-      : edge.data.selectedOption;
+    console.log(edges);
+    const connection = edge.data.innerSelectedOption || edge.data.selectedOption;
     return !connection || connection === "+";
   });
 

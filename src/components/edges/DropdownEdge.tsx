@@ -70,8 +70,7 @@ export default function DropdownEdge({
               selectedOption: data?.selectedOption || "+",
               innerSelectedOption: data?.innerSelectedOption || null,
             }}
-            onSaveSelection={() => updateEdgeData}
-
+            onSaveSelection={updateEdgeData}
           />
         </div>
       </EdgeLabelRenderer>
