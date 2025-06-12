@@ -5,7 +5,7 @@ import DownloadDataButton from "./components/DownloadDataButton";
 
 import "./Header.css";
 
-const Header = ({setAlertMessage, setShowAlert}) => {
+const Header = ({setAlertMessage, setShowAlert, participantId}) => {
   const stopPropagation = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -32,6 +32,7 @@ const Header = ({setAlertMessage, setShowAlert}) => {
             text="Download Data"
             setAlertMessage={setAlertMessage}
             setShowAlert={setShowAlert}
+            participantId={participantId}
             onDoubleClickCapture={stopPropagation}
           />
         </Panel>

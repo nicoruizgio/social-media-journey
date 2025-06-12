@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import {
   Background,
   ReactFlow,
@@ -58,6 +58,12 @@ const App = () => {
     },
   ];
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+
+
+  const participantId = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id") || "";
+  }, []);
 
   const onConnect = useCallback(
     (params) => {
@@ -148,7 +154,7 @@ const App = () => {
         Skip to content
       </a>
       <header >
-        <Header setAlertMessage={setAlertMessage} setShowAlert={setShowAlert} />
+        <Header setAlertMessage={setAlertMessage} setShowAlert={setShowAlert} participantId={participantId} />
       </header>
 
       <div

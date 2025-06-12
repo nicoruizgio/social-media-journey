@@ -3,14 +3,14 @@ import { useReactFlow } from "@xyflow/react";
 import { downloadData } from "../../../utils/downloadData";
 import { MdOutlineFileDownload } from "react-icons/md";
 
-const DownloadDataButton = ({ text, setShowAlert, setAlertMessage }) => {
+const DownloadDataButton = ({ text, setShowAlert, setAlertMessage, participantId }) => {
   const { getNodes, getEdges } = useReactFlow();
 
   const handleDownload = () => {
     const nodes = getNodes();
     const edges = getEdges();
 
-    downloadData(nodes, edges, setAlertMessage, setShowAlert);
+    downloadData(nodes, edges, setAlertMessage, setShowAlert, participantId);
   };
 
   return (

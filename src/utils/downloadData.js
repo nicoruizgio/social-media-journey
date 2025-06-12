@@ -1,4 +1,4 @@
-export function downloadData(nodes, edges, setAlertMessage, setShowAlert) {
+export function downloadData(nodes, edges, setAlertMessage, setShowAlert, participantId = "") {
   const invalidNode = nodes.find(
     (node) => !node.data.label || node.data.label === "Select App"
   );
@@ -59,7 +59,9 @@ export function downloadData(nodes, edges, setAlertMessage, setShowAlert) {
     }","${edge.targetLabel || ""}","${edge.connection || ""}"\n`;
   });
 
-  const combinedCSV = "NODES\n" + nodesCSV + "\nEDGES\n" + edgesCSV;
+  const combinedCSV =
+    `PARTICIPANT_ID,${participantId}\n` +
+    "NODES\n" + nodesCSV + "\nEDGES\n" + edgesCSV;
 
   const blob = new Blob([combinedCSV], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
