@@ -3,9 +3,10 @@ import { Panel, useReactFlow } from "@xyflow/react";
 import Help from "./components/Help";
 import DownloadDataButton from "./components/DownloadDataButton";
 
+
 import "./Header.css";
 
-const Header = ({setAlertMessage, setShowAlert, participantId}) => {
+const Header = ({setAlertMessage, setShowAlert, setAlertType, participantId}) => {
   const stopPropagation = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -29,9 +30,10 @@ const Header = ({setAlertMessage, setShowAlert, participantId}) => {
       </Panel>
       <Panel position="top-right" onDoubleClickCapture={stopPropagation}>
           <DownloadDataButton
-            text="Download Data"
+            text="Save Data"
             setAlertMessage={setAlertMessage}
             setShowAlert={setShowAlert}
+            setAlertType={setAlertType}
             participantId={participantId}
             onDoubleClickCapture={stopPropagation}
           />

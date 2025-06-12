@@ -43,6 +43,7 @@ const App = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("danger"); // NEW
   const { screenToFlowPosition } = useReactFlow();
   const initialNodes = [
     {
@@ -154,7 +155,12 @@ const App = () => {
         Skip to content
       </a>
       <header >
-        <Header setAlertMessage={setAlertMessage} setShowAlert={setShowAlert} participantId={participantId} />
+        <Header
+          setAlertMessage={setAlertMessage}
+          setShowAlert={setShowAlert}
+          setAlertType={setAlertType}
+          participantId={participantId}
+        />
       </header>
 
       <div
@@ -179,7 +185,7 @@ const App = () => {
           defaultEdgeOptions={defaultEdgeOptions}
         >
           <Toolbar onCreateNode={handleCreateNode} />
-          <Alert alertMessage={alertMessage} showAlert={showAlert} />
+          <Alert alertMessage={alertMessage} showAlert={showAlert} alertType={alertType} />
           <Background />
         </ReactFlow>
       </div>
