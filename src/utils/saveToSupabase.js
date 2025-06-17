@@ -7,16 +7,18 @@ export async function saveJourneyToSupabase(participantId, nodes, edges) {
   }));
 
   const edgesData = edges.map((edge) => {
-    const connection = edge.data.innerSelectedOption
-      ? `Communication with ${edge.data.innerSelectedOption}`
-      : edge.data.selectedOption;
+
+    const connection = [
+      edge.data.selectedOption,
+      edge.data.innerSelectedOption ?? null
+    ];
     return {
       id: `${edge.source}-${edge.target}`,
       sourceId: edge.source,
       targetId: edge.target,
       sourceLabel: edge.data.sourceLabel,
       targetLabel: edge.data.targetLabel,
-      connection: connection,
+      connection,
     };
   });
 

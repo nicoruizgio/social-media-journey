@@ -22,7 +22,11 @@ function ListOptions({
   }, [innerSelectedOption]);
 
   const options = [
-    { type: "list", label: "It was more popular" },
+    { type: "list", label: "I enjoyed the content" },
+    { type: "list", label:  `lost interest in ${sourceLabel}` },
+    { type: "list", label: `The platform seemed more secure than ${sourceLabel}` },
+    { type: "list", label: `The service of ${sourceLabel} was terminated`},
+    { type: "list", label: `${sourceLabel} was blocked by my government` },
     {
       type: "accordion",
       label: "I wanted to communicate with someone particular",
@@ -32,14 +36,54 @@ function ListOptions({
           { type: "text", label: "Friends" },
           { type: "text", label: "Family" },
           { type: "text", label: "Colleagues" },
+          { type: "text", label: "International contacts" },
+          { type: "text", label: "Communities" },
           { type: "input", label: "Other" },
         ],
       },
     },
-    { type: "list", label: "I liked a feature" },
     {
-      type: "list",
-      label: `I didn't like the content on ${sourceLabel}`,
+      type: "accordion",
+      label: `I was not feeling comfortable on ${sourceLabel} anymore`,
+      body: {
+        title: "What made you feel uncomfortable?",
+        options: [
+          { type: "text", label: "Too much information" },
+          { type: "text", label: "Community" },
+          { type: "text", label: "Content" },
+          { type: "text", label: "Leadership" },
+          { type: "text", label: "Privacy" },
+          { type: "input", label: "Other" }
+        ],
+      },
+    },
+    {
+      type: "accordion",
+      label: "It was more popular",
+      body: {
+        title: "Among what group of people was it more popular?",
+        options: [
+          { type: "text", label: "General Public" },
+          { type: "text", label: "Friends" },
+          { type: "text", label: "Family" },
+          { type: "text", label: "Colleagues" },
+          { type: "text", label: "Privacy" },
+          { type: "input", label: "Other" }
+        ],
+      },
+    },
+    {
+      type: "accordion",
+      label: `${sourceLabel} was lacking something`,
+      body: {
+        title: "What was the platform lacking?",
+        options: [
+          { type: "text", label: "Users" },
+          { type: "text", label: "Content" },
+          { type: "text", label: "Policies" },
+          { type: "input", label: "Other" }
+        ],
+      },
     },
   ];
 

@@ -5,6 +5,7 @@ import ListOptions from "../list-options/ListOptions";
 import "./ModalEdge.css";
 import { Alert } from "../alert/Alert";
 
+
 function MyModal({
   show,
   onHide,
@@ -29,25 +30,25 @@ function MyModal({
 
   const onSave = () => {
     let inner = null;
-    const option = "I wanted to communicate with someone particular";
 
-    if (selectedOption === option) {
+    const accordionLabels = [
+      "I wanted to communicate with someone particular",
+      `I was not feeling comfortable on ${sourceLabel} anymore`,
+      "It was more popular",
+      `${sourceLabel} was lacking something`,
+    ];
+
+    const isAccordion = accordionLabels.includes(selectedOption);
+
+    if (isAccordion) {
       const value = otherRef.current?.value?.trim() || innerSelectedOption;
-      if (value) {
-        if (value === option) {
-          setAlertMessage("Please enter who did you want to communicate with");
-          setShowAlert(true);
-          setTimeout(() => setShowAlert(false), 4000);
-          return;
-        }
-
-        inner = value;
-      } else {
-        setAlertMessage("Please enter who did you want to communicate with");
+      if (!value || value === selectedOption) {
+        setAlertMessage("Select one of the suboptions");
         setShowAlert(true);
         setTimeout(() => setShowAlert(false), 4000);
         return;
       }
+      inner = value;
     }
 
     const newSelection = {
@@ -56,9 +57,7 @@ function MyModal({
     };
 
     setSaveOption(newSelection);
-
     onSaveSelection(newSelection);
-
     onHideModal();
   };
 

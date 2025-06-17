@@ -8,11 +8,22 @@ function DropdownNodeOptions({ selectedApp, setSelectedApp }) {
   const [modalShow, setModalShow] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
 
-  const apps = [
+  const apps = [{ type: "text", label: "Facebook" },
+    { type: "text", label: "FB Messenger" },
+    { type: "text", label: "ICQ" },
     { type: "text", label: "Instagram" },
-    { type: "text", label: "Facebook" },
     { type: "text", label: "LinkedIn" },
-    { type: "text", label: "Twitter" },
+    { type: "text", label: "Live" },
+    { type: "text", label: "MSN" },
+    { type: "text", label: "MySpace" },
+    { type: "text", label: "Pinterest" },
+    { type: "text", label: "Reddit" },
+    { type: "text", label: "Snapchat" },
+    { type: "text", label: "Telegram" },
+    { type: "text", label: "TikTok" },
+    { type: "text", label: "Whatsapp" },
+    { type: "text", label: "X / Twitter" },
+    { type: "text", label: "Youtube" },
     { type: "input", label: "Other" },
   ];
 
