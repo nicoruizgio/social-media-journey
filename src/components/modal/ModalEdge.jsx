@@ -138,14 +138,29 @@ function ModalEdge({
         variant="dark"
       >
         {(() => {
-          const buttonText =
-            saveOption.innerSelectedOption !== null
-              ? `Communication with ${saveOption.innerSelectedOption}`
-              : saveOption.selectedOption;
+          // Show only selectedOption if innerSelectedOption is "Other" or a custom input
+          if (
+            saveOption.innerSelectedOption === "Other" ||
+            (saveOption.innerSelectedOption &&
+              saveOption.innerSelectedOption !== null &&
+              saveOption.innerSelectedOption.trim() !== "" &&
+              saveOption.innerSelectedOption !== saveOption.selectedOption &&
+              saveOption.selectedOption !== "I wanted to communicate with someone particular")
+          ) {
+            return saveOption.selectedOption;
+          }
 
-          return buttonText.length > 35
-            ? buttonText.substring(0, 33) + "..."
-            : buttonText;
+          // For "I wanted to communicate with someone particular", show "Communication with X"
+          if (
+            saveOption.selectedOption === "I wanted to communicate with someone particular" &&
+            saveOption.innerSelectedOption &&
+            saveOption.innerSelectedOption !== "Other"
+          ) {
+            return `Communication with ${saveOption.innerSelectedOption}`;
+          }
+
+          // Default: show selectedOption
+          return saveOption.selectedOption;
         })()}
       </Button>
 
