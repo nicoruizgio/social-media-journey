@@ -63,8 +63,13 @@ const App = () => {
 
   const participantId = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
-    return params.get("id") || "";
+    let id = params.get("id");
+    if (!id) {
+      id = crypto.randomUUID();
+    }
+    return id;
   }, []);
+
 
   const onConnect = useCallback(
     (params) => {
