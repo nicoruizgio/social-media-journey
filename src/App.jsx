@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import {
   Background,
   ReactFlow,
@@ -43,6 +43,7 @@ const App = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("danger"); // NEW
   const { screenToFlowPosition } = useReactFlow();
   const initialNodes = [
     {
@@ -58,6 +59,12 @@ const App = () => {
     },
   ];
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+
+
+  const participantId = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id") || "";
+  }, []);
 
   const onConnect = useCallback(
     (params) => {
@@ -148,7 +155,12 @@ const App = () => {
         Skip to content
       </a>
       <header >
-        <Header setAlertMessage={setAlertMessage} setShowAlert={setShowAlert} />
+        <Header
+          setAlertMessage={setAlertMessage}
+          setShowAlert={setShowAlert}
+          setAlertType={setAlertType}
+          participantId={participantId}
+        />
       </header>
 
       <div
@@ -173,7 +185,7 @@ const App = () => {
           defaultEdgeOptions={defaultEdgeOptions}
         >
           <Toolbar onCreateNode={handleCreateNode} />
-          <Alert alertMessage={alertMessage} showAlert={showAlert} />
+          <Alert alertMessage={alertMessage} showAlert={showAlert} alertType={alertType} />
           <Background />
         </ReactFlow>
       </div>
