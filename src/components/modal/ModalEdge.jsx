@@ -150,7 +150,7 @@ function ModalEdge({
             return saveOption.selectedOption;
           }
 
-          // For "I wanted to communicate with someone particular", show "Communication with X"
+          // For "I wanted to communicate wit.....", show "Communication with X"
           if (
             saveOption.selectedOption === "I wanted to communicate with someone particular" &&
             saveOption.innerSelectedOption &&

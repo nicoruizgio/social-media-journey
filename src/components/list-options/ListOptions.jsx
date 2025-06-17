@@ -184,18 +184,19 @@ function ListOptions({
                           type="text"
                           placeholder="Other"
                           ref={otherRef}
+                          value={innerSelectedOption && innerSelectedOption !== opt.label ? innerSelectedOption : ""}
                           onFocus={() => {
                             if (
                               !innerSelectedOption ||
                               innerSelectedOption === opt.label
                             ) {
-                              setInnerSelectedOption("Other");
-                              setHasInnerSelection(true);
+                              setInnerSelectedOption("");
+                              setHasInnerSelection(false);
                             }
                           }}
-                          onChange={() => {
-                            setInnerSelectedOption("Other");
-                            setHasInnerSelection(true);
+                          onChange={e => {
+                            setInnerSelectedOption(e.target.value);
+                            setHasInnerSelection(!!e.target.value);
                           }}
                         />
                       </ListGroup.Item>
