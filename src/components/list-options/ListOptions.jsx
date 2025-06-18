@@ -73,6 +73,21 @@ function ListOptions({
     },
     {
       type: "accordion",
+      label: "I liked a certain feature",
+      body: {
+        title: "What kind of feature did you like?",
+        options: [
+          { type: "text", label: "Chat" },
+          { type: "text", label: "Feeds" },
+          { type: "text", label: "Recommendations" },
+          { type: "text", label: "Groups" },
+          { type: "text", label: "Posting" },
+          { type: "input", label: "Other" }
+        ],
+      },
+    },
+    {
+      type: "accordion",
       label: `${sourceLabel} was lacking something`,
       body: {
         title: "What was the platform lacking?",
