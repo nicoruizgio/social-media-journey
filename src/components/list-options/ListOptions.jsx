@@ -23,10 +23,10 @@ function ListOptions({
 
   const options = [
     { type: "list", label: "I enjoyed the content" },
-    { type: "list", label:  `lost interest in ${sourceLabel}` },
-    { type: "list", label: `The platform seemed more secure than ${sourceLabel}` },
-    { type: "list", label: `The service of ${sourceLabel} was terminated`},
-    { type: "list", label: `${sourceLabel} was blocked by my government` },
+    { type: "list", label: "I lost interest in ${sourceLabel}" },
+    { type: "list", label: "The platform seemed more secure than ${sourceLabel}" },
+    { type: "list", label: "The service of ${sourceLabel} was terminated"},
+    { type: "list", label: "${sourceLabel} was blocked by my government" },
     {
       type: "accordion",
       label: "I wanted to communicate with someone particular",
@@ -67,7 +67,21 @@ function ListOptions({
           { type: "text", label: "Friends" },
           { type: "text", label: "Family" },
           { type: "text", label: "Colleagues" },
-          { type: "text", label: "Privacy" },
+          { type: "input", label: "Other" }
+        ],
+      },
+    },
+    {
+      type: "accordion",
+      label: "I liked a certain feature",
+      body: {
+        title: "What kind of feature did you like?",
+        options: [
+          { type: "text", label: "Chat" },
+          { type: "text", label: "Feeds" },
+          { type: "text", label: "Recommendations" },
+          { type: "text", label: "Groups" },
+          { type: "text", label: "Posting" },
           { type: "input", label: "Other" }
         ],
       },
