@@ -6,9 +6,6 @@
   cursor: pointer;
 }
 
-.dropdown-btn:hover {
-  padding: 0.6rem 1.1rem;
-}
 
 .dropdown-item:active {
   background-color: #e0e0e0;

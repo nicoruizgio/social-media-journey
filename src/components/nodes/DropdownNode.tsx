@@ -6,6 +6,7 @@ import {
   NodeProps,
   addEdge,
 } from "@xyflow/react";
+import { IoIosCloseCircle } from "react-icons/io";
 import "./DropdownNode.css";
 import DropdownNodeOptions from "../dropdown-node-options/DropwdownNodeOptions";
 import { validateConnection, createConnectionParams } from "../../utils/connectionUtils";
@@ -14,7 +15,7 @@ import { useConnection } from "../../context/ConnectionContext";
 
 function DropdownNode({ id, data, isConnectable }: NodeProps) {
   const { setShowAlert, setAlertMessage } = data;
-  const { getEdges, getNodes, setNodes, setEdges } = useReactFlow();
+  const { getEdges, getNodes, setNodes, setEdges, deleteElements } = useReactFlow();
   const [selectedApp, _setSelectedApp] = useState(data.label || "Select App");
   const { pendingConnection, startConnection, resetConnection } = useConnection();
 
@@ -114,8 +115,24 @@ function DropdownNode({ id, data, isConnectable }: NodeProps) {
   const isPendingSource = pendingConnection?.nodeId === id && pendingConnection?.handleType === "source";
   const isPendingTarget = pendingConnection?.nodeId === id && pendingConnection?.handleType === "target";
 
+  // delete
+  const handleDeleteNode = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    await deleteElements({ nodes: [{ id }] });
+  };
+
   return (
-    <div className="input-text-node">
+    <div className="input-text-node node-hover-group">
+
+      <button
+        className="node-delete-btn"
+        onClick={handleDeleteNode}
+        aria-label="Delete node"
+        tabIndex={-1}
+        type="button"
+      >
+        <IoIosCloseCircle />
+      </button>
       <Handle
         type="source"
         position={Position.Bottom}
@@ -127,14 +144,12 @@ function DropdownNode({ id, data, isConnectable }: NodeProps) {
         aria-label="source handle"
         title="source handle"
       />
-
       <div>
         <DropdownNodeOptions
           selectedApp={selectedApp}
           setSelectedApp={setSelectedApp}
         />
       </div>
-
       <Handle
         type="target"
         position={Position.Top}
