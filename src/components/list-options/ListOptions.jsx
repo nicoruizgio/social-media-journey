@@ -23,9 +23,12 @@ function ListOptions({
 
   const options = [
     { type: "list", label: "I enjoyed the content" },
-    { type: "list", label:  `lost interest in ${sourceLabel}` },
-    { type: "list", label: `The platform seemed more secure than ${sourceLabel}` },
-    { type: "list", label: `The service of ${sourceLabel} was terminated`},
+    { type: "list", label: `lost interest in ${sourceLabel}` },
+    {
+      type: "list",
+      label: `The platform seemed more secure than ${sourceLabel}`,
+    },
+    { type: "list", label: `The service of ${sourceLabel} was terminated` },
     { type: "list", label: `${sourceLabel} was blocked by my government` },
     {
       type: "accordion",
@@ -53,7 +56,7 @@ function ListOptions({
           { type: "text", label: "Content" },
           { type: "text", label: "Leadership" },
           { type: "text", label: "Privacy" },
-          { type: "input", label: "Other" }
+          { type: "input", label: "Other" },
         ],
       },
     },
@@ -68,7 +71,7 @@ function ListOptions({
           { type: "text", label: "Family" },
           { type: "text", label: "Colleagues" },
           { type: "text", label: "Privacy" },
-          { type: "input", label: "Other" }
+          { type: "input", label: "Other" },
         ],
       },
     },
@@ -81,7 +84,7 @@ function ListOptions({
           { type: "text", label: "Users" },
           { type: "text", label: "Content" },
           { type: "text", label: "Policies" },
-          { type: "input", label: "Other" }
+          { type: "input", label: "Other" },
         ],
       },
     },
@@ -177,24 +180,43 @@ function ListOptions({
                         key={j}
                         className="d-flex"
                         action
-                        active={innerSelectedOption === "Other"}
-                        onClick={(e) => e.stopPropagation()}
+                        active={
+                          typeof innerSelectedOption === "string" &&
+                          !opt.body.options.some(
+                            (o) => o.label === innerSelectedOption
+                          )
+                        }
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (otherRef.current) otherRef.current.focus();
+                        }}
                       >
                         <Form.Control
                           type="text"
                           placeholder="Other"
                           ref={otherRef}
-                          value={innerSelectedOption && innerSelectedOption !== opt.label ? innerSelectedOption : ""}
+                          value={
+                            opt.body.options.some(
+                              (o) =>
+                                o.type === "text" &&
+                                o.label === innerSelectedOption
+                            )
+                              ? ""
+                              : innerSelectedOption || ""
+                          }
                           onFocus={() => {
                             if (
-                              !innerSelectedOption ||
-                              innerSelectedOption === opt.label
+                              opt.body.options.some(
+                                (o) =>
+                                  o.type === "text" &&
+                                  o.label === innerSelectedOption
+                              )
                             ) {
                               setInnerSelectedOption("");
                               setHasInnerSelection(false);
                             }
                           }}
-                          onChange={e => {
+                          onChange={(e) => {
                             setInnerSelectedOption(e.target.value);
                             setHasInnerSelection(!!e.target.value);
                           }}
