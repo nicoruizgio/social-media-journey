@@ -66,34 +66,37 @@
   transform: translateY(-50%);
 }
 
-.node-hover-group {
-  position: relative;
+.node-hover-area {
+  display: inline-block;
+  padding: 16px;
+  margin: -16px;
 }
 
 .node-delete-btn {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  background: #fff;
+  top: -10px;
+  right: -22px;
+  color: #d32f2f;
   border: none;
-  color: #888;
+  background-color: transparent;
   border-radius: 50%;
-  width: 12px;
-  height: 12px;
-  display: none;
+  width: auto;
+  height: auto;
+  display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
   padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  font-size: 1.2rem;
+  transition: opacity 0.2s;
 }
 
-.node-hover-group:hover .node-delete-btn,
-.node-delete-btn:focus {
-  display: flex;
-}
-
+.node-hover-area:hover .node-delete-btn,
 .node-delete-btn:hover {
+  opacity: 1;
   color: #d32f2f;
-  background: #f8d7da;
+  pointer-events: auto;
 }

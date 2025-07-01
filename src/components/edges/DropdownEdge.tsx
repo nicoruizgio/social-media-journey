@@ -6,7 +6,7 @@ import {
   useReactFlow,
   type EdgeProps,
 } from "@xyflow/react";
-
+import { IoIosCloseCircle } from "react-icons/io";
 import "./DropdownEdge.css";
 import ModalEdge from "../modal/ModalEdge";
 
@@ -22,7 +22,7 @@ export default function DropdownEdge({
   style = {},
   markerEnd,
 }: EdgeProps & { data?: { openModal?: boolean; [key: string]: any } }) {
-  const { setEdges } = useReactFlow();
+  const { setEdges, deleteElements } = useReactFlow();
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -52,6 +52,11 @@ export default function DropdownEdge({
     );
   };
 
+  // handle edge deletion
+  const handleDeleteEdge = () => {
+    deleteElements({ edges: [{ id }] });
+  };
+
   return (
     <>
       <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
@@ -62,16 +67,27 @@ export default function DropdownEdge({
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
           }}
         >
-          <ModalEdge
-            sourceLabel={data?.sourceLabel}
-            targetLabel={data?.targetLabel}
-            autoOpen={data?.openModal}
-            initialSelection={{
-              selectedOption: data?.selectedOption || "+",
-              innerSelectedOption: data?.innerSelectedOption || null,
-            }}
-            onSaveSelection={updateEdgeData}
-          />
+          <div className="edge-hover-area">
+            <button
+              className="edge-delete-btn"
+              onClick={handleDeleteEdge}
+              aria-label="Delete node"
+              tabIndex={-1}
+              type="button"
+            >
+              <IoIosCloseCircle />
+            </button>
+            <ModalEdge
+              sourceLabel={data?.sourceLabel}
+              targetLabel={data?.targetLabel}
+              autoOpen={data?.openModal}
+              initialSelection={{
+                selectedOption: data?.selectedOption || "+",
+                innerSelectedOption: data?.innerSelectedOption || null,
+              }}
+              onSaveSelection={updateEdgeData}
+            />
+          </div>
         </div>
       </EdgeLabelRenderer>
     </>

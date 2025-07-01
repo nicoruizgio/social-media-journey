@@ -122,45 +122,47 @@ function DropdownNode({ id, data, isConnectable }: NodeProps) {
   };
 
   return (
-    <div className="input-text-node node-hover-group">
+    <div className="node-hover-area">
+      <div className="input-text-node node-hover-group">
 
-      <button
-        className="node-delete-btn"
-        onClick={handleDeleteNode}
-        aria-label="Delete node"
-        tabIndex={-1}
-        type="button"
-      >
-        <IoIosCloseCircle />
-      </button>
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        id="b"
-        isConnectable={isConnectable}
-        tabIndex={0}
-        onKeyDown={(e) => handleKeyDown(e, "source")}
-        className={isPendingSource ? "connecting-handle" : ""}
-        aria-label="source handle"
-        title="source handle"
-      />
-      <div>
-        <DropdownNodeOptions
-          selectedApp={selectedApp}
-          setSelectedApp={setSelectedApp}
+        <button
+          className="node-delete-btn"
+          onClick={handleDeleteNode}
+          aria-label="Delete node"
+          tabIndex={-1}
+          type="button"
+        >
+          <IoIosCloseCircle />
+        </button>
+        <Handle
+          type="source"
+          position={Position.Bottom}
+          id="b"
+          isConnectable={isConnectable}
+          tabIndex={0}
+          onKeyDown={(e) => handleKeyDown(e, "source")}
+          className={isPendingSource ? "connecting-handle" : ""}
+          aria-label="source handle"
+          title="source handle"
+        />
+        <div>
+          <DropdownNodeOptions
+            selectedApp={selectedApp}
+            setSelectedApp={setSelectedApp}
+          />
+        </div>
+        <Handle
+          type="target"
+          position={Position.Top}
+          id="a"
+          isConnectable={isConnectable}
+          tabIndex={0}
+          onKeyDown={(e) => handleKeyDown(e, "target")}
+          className={isPendingTarget ? "connecting-handle" : ""}
+          aria-label="target handle"
+          title="target handle"
         />
       </div>
-      <Handle
-        type="target"
-        position={Position.Top}
-        id="a"
-        isConnectable={isConnectable}
-        tabIndex={0}
-        onKeyDown={(e) => handleKeyDown(e, "target")}
-        className={isPendingTarget ? "connecting-handle" : ""}
-        aria-label="target handle"
-        title="target handle"
-      />
     </div>
   );
 }
