@@ -6,11 +6,19 @@
   cursor: pointer;
 }
 
-
 .dropdown-item:active {
   background-color: #e0e0e0;
   color: rgb(0, 0, 0) !important;
 }
+
+.dropdown-item img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
 .node-options:hover {
   background-color: #e0e0e048;
   color: rgb(0, 0, 0) !important;
