@@ -22,19 +22,7 @@ const DownloadDataButton = ({ text, setShowAlert, setAlertMessage, setAlertType,
       return;
     }
 
-    const invalidEdge = edges.find((edge) => {
-      const connection = edge.data.innerSelectedOption || edge.data.selectedOption;
-      return !connection || connection === "+";
-    });
 
-    if (invalidEdge) {
-      setAlertMessage(
-        "Please select a reason for migrating for all connections before saving"
-      );
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 4000);
-      return;
-    }
 
     // Save to Supabase
     const error = await saveJourneyToSupabase(participantId, nodes, edges);

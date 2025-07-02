@@ -16,22 +16,7 @@ export function downloadData(nodes, edges, setAlertMessage, setShowAlert, partic
     label: node.data.label,
   }));
 
-  const invalidEdge = edges.find((edge) => {
-    console.log(edges);
-    const connection = edge.data.innerSelectedOption || edge.data.selectedOption;
-    return !connection || connection === "+";
-  });
 
-  if (invalidEdge) {
-    setAlertMessage(
-      "Please select a reason for migrating for all connections before downloading"
-    );
-    setShowAlert(true);
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 4000);
-    return;
-  }
 
   const edgesData = edges.map((edge) => {
     const connection = edge.data.innerSelectedOption

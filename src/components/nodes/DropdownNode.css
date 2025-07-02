@@ -66,6 +66,17 @@
   transform: translateY(-50%);
 }
 
+.source-handle {
+  background: #3182ce7b !important; /* blue */
+  border: 1px solid #3182ce !important;
+}
+
+.target-handle {
+  background: #ffffff;
+  border: 1px solid #c0c0c0;
+}
+}
+
 .node-hover-area {
   display: inline-block;
   padding: 16px;

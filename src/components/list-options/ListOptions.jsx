@@ -88,6 +88,11 @@ function ListOptions({
         ],
       },
     },
+    {
+      type: "list",
+      label: "Other",
+      isOther: true,
+    },
   ];
 
   const handleAccordionKeyDown = (e, optLabel) => {
@@ -102,6 +107,44 @@ function ListOptions({
     <ListGroup>
       {options.map((opt, i) => {
         if (opt.type === "list") {
+          if (opt.isOther) {
+            return (
+              <ListGroup.Item
+                key={i}
+                className="d-flex"
+                action
+                active={selectedOption === opt.label}
+                onClick={() => {
+                  setSelectedOption(opt.label);
+                  setOpenAccordion(null);
+                  if (otherRef.current) otherRef.current.focus();
+                }}
+              >
+                <Form.Control
+                  type="text"
+                  placeholder="Other"
+                  ref={otherRef}
+                  value={
+                    selectedOption === opt.label
+                      ? innerSelectedOption || ""
+                      : ""
+                  }
+                  onFocus={() => {
+                    if (selectedOption !== opt.label) {
+                      setSelectedOption(opt.label);
+                      setInnerSelectedOption("");
+                      setHasInnerSelection(false);
+                    }
+                  }}
+                  onChange={(e) => {
+                    setInnerSelectedOption(e.target.value);
+                    setHasInnerSelection(!!e.target.value);
+                  }}
+                  style={{ width: "100%" }}
+                />
+              </ListGroup.Item>
+            );
+          }
           return (
             <ListGroup.Item
               key={i}

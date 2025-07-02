@@ -17,15 +17,7 @@ export type ConnectionParams = {
 };
 
 export const validateConnection = (sourceNode: Node, targetNode: Node): ValidationResult => {
-  const invalid = (node: Node) =>
-    !node?.data?.label || node.data.label === "Select App";
 
-  if (invalid(sourceNode) || invalid(targetNode)) {
-    return {
-      valid: false,
-      message: "Please select an app for both nodes before connecting"
-    };
-  }
 
   if (sourceNode.data.label === targetNode.data.label) {
     return {

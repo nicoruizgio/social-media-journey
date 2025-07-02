@@ -141,7 +141,7 @@ function DropdownNode({ id, data, isConnectable }: NodeProps) {
           isConnectable={isConnectable}
           tabIndex={0}
           onKeyDown={(e) => handleKeyDown(e, "source")}
-          className={isPendingSource ? "connecting-handle" : ""}
+          className={`source-handle ${isPendingSource ? "connecting-handle" : ""}`}
           aria-label="source handle"
           title="source handle"
         />
@@ -158,7 +158,7 @@ function DropdownNode({ id, data, isConnectable }: NodeProps) {
           isConnectable={isConnectable}
           tabIndex={0}
           onKeyDown={(e) => handleKeyDown(e, "target")}
-          className={isPendingTarget ? "connecting-handle" : ""}
+          className={`target-handle ${isPendingTarget ? "connecting-handle" : ""}`}
           aria-label="target handle"
           title="target handle"
         />

@@ -49,6 +49,16 @@ function MyModal({
         return;
       }
       inner = value;
+    } else if (selectedOption === "Other") {
+      // Save the input value for the "Other" option
+      const value = otherRef.current?.value?.trim();
+      if (!value) {
+        setAlertMessage("Please specify your reason");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 4000);
+        return;
+      }
+      inner = value;
     }
 
     const newSelection = {
@@ -138,19 +148,17 @@ function ModalEdge({
         variant="dark"
       >
         {(() => {
-          // Show only selectedOption if innerSelectedOption is "Other" or a custom input
+          // Show input for "Other (please specify)" if filled
           if (
-            saveOption.innerSelectedOption === "Other" ||
-            (saveOption.innerSelectedOption &&
-              saveOption.innerSelectedOption !== null &&
-              saveOption.innerSelectedOption.trim() !== "" &&
-              saveOption.innerSelectedOption !== saveOption.selectedOption &&
-              saveOption.selectedOption !== "I wanted to communicate with someone particular")
+            saveOption.selectedOption === "Other" &&
+            saveOption.innerSelectedOption &&
+            saveOption.innerSelectedOption.trim() !== ""
           ) {
-            return saveOption.selectedOption;
+            const text = saveOption.innerSelectedOption.trim();
+            return text.length > 30 ? text.slice(0, 30) + "…" : text;
           }
 
-          // For "I wanted to communicate wit.....", show "Communication with X"
+          // Accordion "Other" logic
           if (
             saveOption.selectedOption === "I wanted to communicate with someone particular" &&
             saveOption.innerSelectedOption &&
@@ -159,7 +167,7 @@ function ModalEdge({
             return `Communication with ${saveOption.innerSelectedOption}`;
           }
 
-          // Default: show selectedOption
+          // Default
           return saveOption.selectedOption;
         })()}
       </Button>
