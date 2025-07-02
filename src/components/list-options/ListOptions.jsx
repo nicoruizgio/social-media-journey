@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Collapse from "react-bootstrap/Collapse";
 import Form from "react-bootstrap/Form";
@@ -14,6 +14,8 @@ function ListOptions({
 }) {
   const [openAccordion, setOpenAccordion] = useState(null);
   const [hasInnerSelection, setHasInnerSelection] = useState(false);
+  const [mainOtherValue, setMainOtherValue] = useState("");
+  const [accordionOtherValues, setAccordionOtherValues] = useState({});
 
   useEffect(() => {
     if (innerSelectedOption) {
@@ -124,20 +126,16 @@ function ListOptions({
                   type="text"
                   placeholder="Other"
                   ref={otherRef}
-                  value={
-                    selectedOption === opt.label
-                      ? innerSelectedOption || ""
-                      : ""
-                  }
+                  value={selectedOption === opt.label ? mainOtherValue : ""}
                   onFocus={() => {
                     if (selectedOption !== opt.label) {
                       setSelectedOption(opt.label);
-                      setInnerSelectedOption("");
+                      setMainOtherValue("");
                       setHasInnerSelection(false);
                     }
                   }}
                   onChange={(e) => {
-                    setInnerSelectedOption(e.target.value);
+                    setMainOtherValue(e.target.value);
                     setHasInnerSelection(!!e.target.value);
                   }}
                   style={{ width: "100%" }}
@@ -218,6 +216,9 @@ function ListOptions({
                       );
                     }
 
+                    // Use a local ref for each accordion "Other" input
+                    const localOtherRef = useRef(null);
+
                     return (
                       <ListGroup.Item
                         key={j}
@@ -231,35 +232,23 @@ function ListOptions({
                         }
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (otherRef.current) otherRef.current.focus();
+                          if (localOtherRef.current) localOtherRef.current.focus();
                         }}
                       >
                         <Form.Control
                           type="text"
                           placeholder="Other"
-                          ref={otherRef}
-                          value={
-                            opt.body.options.some(
-                              (o) =>
-                                o.type === "text" &&
-                                o.label === innerSelectedOption
-                            )
-                              ? ""
-                              : innerSelectedOption || ""
-                          }
+                          ref={localOtherRef}
+                          value={accordionOtherValues[opt.label] || ""}
                           onFocus={() => {
-                            if (
-                              opt.body.options.some(
-                                (o) =>
-                                  o.type === "text" &&
-                                  o.label === innerSelectedOption
-                              )
-                            ) {
-                              setInnerSelectedOption("");
-                              setHasInnerSelection(false);
-                            }
+                            setInnerSelectedOption("");
+                            setHasInnerSelection(false);
                           }}
                           onChange={(e) => {
+                            setAccordionOtherValues((prev) => ({
+                              ...prev,
+                              [opt.label]: e.target.value,
+                            }));
                             setInnerSelectedOption(e.target.value);
                             setHasInnerSelection(!!e.target.value);
                           }}

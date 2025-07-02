@@ -67,14 +67,8 @@
 }
 
 .source-handle {
-  background: #3182ce7b !important; /* blue */
+  background: #3182ce7f !important; /* blue */
   border: 1px solid #3182ce !important;
-}
-
-.target-handle {
-  background: #ffffff;
-  border: 1px solid #c0c0c0;
-}
 }
 
 .node-hover-area {
