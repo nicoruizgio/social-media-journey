@@ -148,7 +148,7 @@ function ModalEdge({
         variant="dark"
       >
         {(() => {
-          // Show input for "Other (please specify)" if filled
+
           if (
             saveOption.selectedOption === "Other" &&
             saveOption.innerSelectedOption &&
@@ -158,7 +158,7 @@ function ModalEdge({
             return text.length > 30 ? text.slice(0, 30) + "…" : text;
           }
 
-          // Accordion "Other" logic
+
           if (
             saveOption.selectedOption === "I wanted to communicate with someone particular" &&
             saveOption.innerSelectedOption &&
