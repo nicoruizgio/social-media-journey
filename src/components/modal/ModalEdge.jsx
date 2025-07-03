@@ -94,11 +94,9 @@ function MyModal({
         />
       </Modal.Body>
       <Modal.Footer>
-        {showAlert && (
-          <div style={{ width: "100%" }}>
-            <Alert alertMessage={alertMessage} />
-          </div>
-        )}
+        <div style={{ width: "100%" }}>
+          <Alert alertMessage={alertMessage} showAlert={showAlert} />
+        </div>
         <Button className="save-btn" onClick={onSave} variant="dark">
           Save
         </Button>
