@@ -16,6 +16,9 @@ import Header from "./components/header/Header.jsx";
 import { Alert } from "./components/alert/Alert.jsx";
 import Toolbar from "./components/toolbar/Toolbar.jsx";
 import { ConnectionProvider } from './context/ConnectionContext';
+import AttributionsButton from "./components/attributions/AttributionsButton.jsx";
+import AttributionsPage from "./components/attributions/AttributionsPage.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,6 +28,8 @@ import DropdownEdge from "./components/edges/DropdownEdge.tsx";
 
 const nodeTypes = { dropdownNode: DropdownNode };
 const edgeTypes = { dropdownEdge: DropdownEdge };
+
+const proOptions = { hideAttribution: true };
 
 const defaultEdgeOptions = {
   type: "dropdownEdge",
@@ -38,7 +43,7 @@ let id = 1;
 const getId = () => `${id++}`;
 const nodeOrigin = [0.5, 0];
 
-const App = () => {
+function MainApp() {
   const reactFlowWrapper = useRef(null);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [showAlert, setShowAlert] = useState(false);
@@ -188,20 +193,29 @@ const App = () => {
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           defaultEdgeOptions={defaultEdgeOptions}
+          proOptions={proOptions}
         >
           <Toolbar onCreateNode={handleCreateNode} />
+          <AttributionsButton />
           <Alert alertMessage={alertMessage} showAlert={showAlert} alertType={alertType} />
           <Background />
         </ReactFlow>
       </div>
     </div>
   );
-};
+}
 
 export default () => (
-  <ReactFlowProvider>
-    <ConnectionProvider>
-      <App />
-    </ConnectionProvider>
-  </ReactFlowProvider>
+  <ConnectionProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/attributions" element={<AttributionsPage />} />
+        <Route path="*" element={
+          <ReactFlowProvider>
+            <MainApp />
+          </ReactFlowProvider>
+        } />
+      </Routes>
+    </BrowserRouter>
+  </ConnectionProvider>
 );
