@@ -61,6 +61,14 @@
   font-size: 1.5rem;
 }
 
+button.download-btn:focus,
+.download-btn:focus-visible {
+  outline: 4px solid rgb(0, 0, 0) !important;      /* Thick black outline */
+  outline-offset: 2px !important;           /* Space between border and outline */
+  box-shadow: 0 0 0 4px #00000033 !important; /* Subtle black glow outside outline */
+  z-index: 6;
+}
+
 @media (max-width: 933px) {
   .instructions-panel {
     width: 10rem;

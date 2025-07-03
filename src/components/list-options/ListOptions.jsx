@@ -160,16 +160,12 @@ function ListOptions({
                       placeholder="Other"
                       ref={otherRef}
                       value={selectedOption === opt.label ? mainOtherValue : ""}
-                      onFocus={() => {
-                        if (selectedOption !== opt.label) {
-                          setSelectedOption(opt.label);
-                          setMainOtherValue("");
-                          setHasInnerSelection(false);
-                        }
-                      }}
                       onChange={(e) => {
                         setMainOtherValue(e.target.value);
                         setHasInnerSelection(!!e.target.value);
+                        if (e.target.value && selectedOption !== opt.label) {
+                          setSelectedOption(opt.label);
+                        }
                       }}
                       style={{ width: "100%" }}
                     />
