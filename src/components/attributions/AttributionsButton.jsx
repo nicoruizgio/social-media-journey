@@ -9,9 +9,14 @@ const AttributionsButton = () => {
 
   return (
     <Panel position="bottom-right" className="attributions-panel">
-      <div className="attributions-button" onClick={handleClick}>
+      <button
+        className="attributions-button"
+        onClick={handleClick}
+        aria-label="View icon attributions"
+        type="button"
+      >
         Attributions
-      </div>
+      </button>
     </Panel>
   );
 };

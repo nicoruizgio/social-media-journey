@@ -13,18 +13,20 @@ const Help = () => {
         <Accordion.Body>
           <ul>
             <li>
-              <strong>Double click </strong>on the workspace to add a <em>new node</em> or click on the "Add node" button in the toolbar.
+              <strong>Double click </strong>on the workspace to add a{" "}
+              <em>new node</em> or click on the "Add node" button in the
+              toolbar.
             </li>
             <li>
-              To connect one node to another, start by dragging from the{" "}
-              <strong>source handle</strong> — the small circular connector{" "}
-              <em>below the node</em> — and drop it onto the{" "}
-              <strong>target handle</strong>, which is the circular connector{" "}
-              <em>above the destination node</em>.
+              To connect nodes, drag from the <strong>source handle</strong>—the
+              blue connection point at the bottom of the source node—and drop it
+              onto the <strong>target handle</strong>—the white connection point
+              at the top of the destination node.
             </li>
             <li>
-              To <b>delete a connection</b>, click on the connection line and
-              press the delete key
+              When you’re finished, click <strong>Save Data</strong>. You can
+              save your response as many times as you like, so feel free to make
+              edits and save again.
             </li>
           </ul>
         </Accordion.Body>

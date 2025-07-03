@@ -1,5 +1,9 @@
-.attributions-button{
+.attributions-button {
   font-size: 0.7rem;
   color: grey;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
 }

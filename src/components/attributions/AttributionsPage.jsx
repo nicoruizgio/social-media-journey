@@ -21,8 +21,8 @@ const attributions = [
 
 export default function AttributionsPage() {
   return (
-    <div style={{ padding: "2rem", margin: "0 auto" }}>
-      <h2>Icon Attributions</h2>
+    <main style={{ padding: "2rem", margin: "0 auto" }}>
+      <h1>Icon Attributions</h1>
       <ul>
         {attributions.map((attr, idx) => (
           <li key={idx}>
@@ -30,6 +30,6 @@ export default function AttributionsPage() {
           </li>
         ))}
       </ul>
-    </div>
+    </main>
   );
 }
